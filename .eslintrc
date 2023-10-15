@@ -1,0 +1,31 @@
+{
+  "plugins": ["react", "react-native", "@typescript-eslint"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "handlebarlabs"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "react-native/react-native": true
+  },
+  "rules": {
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-props-no-spreading": 0,
+    "react/jsx-curly-newline": 0,
+    "react/style-prop-object": 0,
+
+    "linebreak-style": ["error", "unix"],
+    "import/extensions": ["error", "ignorePackages", { "": "never" }],
+
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off"
+  }
+}
