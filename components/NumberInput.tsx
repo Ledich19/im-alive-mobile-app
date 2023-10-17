@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     borderRadius: 5,
+    marginTop: 16,
   },
   button: {
     paddingHorizontal: 15,
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     position: 'absolute',
-    zIndex: 5
+    zIndex: 5,
   },
 
   contactIcon: {

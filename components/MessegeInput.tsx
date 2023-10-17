@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     borderRadius: 5,
+    marginTop: 16,
   },
   button: {
     paddingHorizontal: 15,
@@ -30,7 +31,6 @@ const styles = StyleSheet.create({
     height: 40,
     paddingLeft: 10,
     fontSize: 18,
-
     textAlignVertical: 'top', // Align content at the top
     minHeight: 100, // Minimum height
   },

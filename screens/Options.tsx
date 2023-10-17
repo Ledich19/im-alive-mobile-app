@@ -1,11 +1,15 @@
+import { useState } from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
-import { useTheme } from '@react-navigation/native';
-import { Entypo } from '@expo/vector-icons';
 import colors from '../constants/Colors';
-import { RowItemEx } from '../components/RowItemEx';
-import RowItem from '../components/RowItem';
+import NumberInput from '../components/NumberInput';
+import { MessegeInput } from '../components/MessegeInput';
 
 const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 16,
+    backgroundColor: colors.light.background,
+    flex: 1,
+  },
   row: {
     paddingHorizontal: 20,
     paddingVertical: 16,
@@ -25,27 +29,25 @@ const styles = StyleSheet.create({
 });
 
 export default () => {
-  const colorsa = useTheme().colors;
-  console.log(colorsa);
+  const [number, setNumber] = useState('');
+  const [message, setMessage] = useState(`Everything is OK`);
 
   return (
-    <SafeAreaView>
-      <RowItemEx
-        title="Themes"
-        onPress={() => alert('todo!')}
-        rightIcon={<Entypo name="adjust" size={24} color="black" />}
+    <SafeAreaView style={styles.container}>
+      <NumberInput
+        text="save"
+        value={number}
+        placeholder="Number"
+        onButtonPress={() => alert('todo!')}
+        onChangeText={(text) => setNumber(text)}
       />
-      <RowItemEx
-        title="React Native Basics"
-        onPress={() => alert('todo!')}
-        rightIcon={<Entypo name="home" size={24} color="black" />}
+      <MessegeInput
+        text="Save"
+        value={message}
+        placeholder="Message"
+        onButtonPress={() => alert('todo!')}
+        onChangeText={(text) => setMessage(text)}
       />
-      <RowItemEx
-        title="React Native by Example"
-        onPress={() => alert('todo!')}
-        rightIcon={<Entypo name="cog" size={24} color="black" />}
-      />
-      <RowItem />
     </SafeAreaView>
   );
 };

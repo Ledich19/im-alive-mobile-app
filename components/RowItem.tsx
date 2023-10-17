@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    width: '100%'
-
+    width: '100%',
+marginTop: 16,
     // flex: 1,
     // backgroundColor: '#fff',
     // alignItems: 'center',
