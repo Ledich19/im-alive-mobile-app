@@ -11,19 +11,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 16,
   },
-  button: {
-    paddingHorizontal: 15,
-    paddingTop: 7,
-    height: 40,
-    borderRightColor: colors.light.borderColor,
-    backgroundColor: 'white',
-    borderTopRightRadius: 13,
-    borderBottomRightRadius: 13,
-  },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
   input: {
     flex: 1,
     backgroundColor: '#EBEBF599',
@@ -73,19 +60,17 @@ const styles = StyleSheet.create({
 });
 
 interface IProps {
-  text: string;
   value: string;
-  onButtonPress: () => void;
   placeholder: string;
   // eslint-disable-next-line no-unused-vars
   onChangeText: (text: string) => void;
 }
 
-const NumberInput = ({ text, value, onButtonPress, onChangeText, placeholder }: IProps) => {
+const NumberInput = ({ value, onChangeText, placeholder }: IProps) => {
   // const [contactName, setContactName] = useState('');
   const [contacts, setContacts] = useState<Contacts.Contact[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
-  
+
   const fetchContacts = async () => {
     const { status } = await Contacts.requestPermissionsAsync();
 
@@ -102,7 +87,7 @@ const NumberInput = ({ text, value, onButtonPress, onChangeText, placeholder }: 
   const handleModalVisible = () => {
     setModalVisible(true);
     fetchContacts();
-   }
+  };
 
   const handleContactPress = (contact: Contacts.Contact) => {
     const { phoneNumbers } = contact;
@@ -126,9 +111,9 @@ const NumberInput = ({ text, value, onButtonPress, onChangeText, placeholder }: 
         keyboardType="phone-pad"
         // editable={false}
       />
-      <TouchableOpacity style={styles.button} onPress={onButtonPress}>
+      {/* <TouchableOpacity style={styles.button} onPress={onButtonPress}>
         <Text style={styles.buttonText}>{text}</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <Modal
         transparent

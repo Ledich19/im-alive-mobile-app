@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native';
-import colors from '../constants/Colors';
+import { View, TextInput, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,21 +8,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 16,
   },
-  button: {
-    paddingHorizontal: 15,
-    paddingTop: 7,
-    height: 40,
-    borderRightColor: colors.light.borderColor,
-    backgroundColor: 'white',
-    borderRadius: 13,
-    position: 'absolute',
-    right: 0,
-    bottom: 0,
-  },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+
   input: {
     flex: 1,
     backgroundColor: '#EBEBF599',
@@ -37,15 +22,13 @@ const styles = StyleSheet.create({
 });
 
 interface IProps {
-  text: string;
   value: string;
-  onButtonPress: () => void;
   placeholder: string;
   // eslint-disable-next-line no-unused-vars
   onChangeText: (text: string) => void;
 }
 
-export const MessegeInput = ({ text, value, onButtonPress, onChangeText, placeholder }: IProps) => {
+export const MessegeInput = ({ value, onChangeText, placeholder }: IProps) => {
   return (
     <View style={styles.container}>
       <TextInput
@@ -55,9 +38,9 @@ export const MessegeInput = ({ text, value, onButtonPress, onChangeText, placeho
         onChangeText={onChangeText}
         style={styles.input}
       />
-      <TouchableOpacity style={styles.button} onPress={onButtonPress}>
+      {/* <TouchableOpacity style={styles.button} onPress={onButtonPress}>
         <Text style={styles.buttonText}>{text}</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
