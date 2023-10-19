@@ -11,11 +11,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     width: '100%',
-marginTop: 16,
-    // flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    marginTop: 16,
   },
   text: {
     fontSize: 18,
@@ -23,9 +19,9 @@ marginTop: 16,
   },
 });
 
-const RowItem = () => {
+const RowItem = ({ onPress }: { onPress: () => void }) => {
   return (
-    <TouchableOpacity style={styles.row}>
+    <TouchableOpacity onPress={onPress} style={styles.row}>
       <Entypo name="message" size={60} color="black" />
       <Text style={styles.text}>I&lsquo;m alive</Text>
       <Entypo name="chevron-right" size={20} color={colors.light.sign} />
