@@ -19,9 +19,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const RowItem = ({ onPress }: { onPress: () => void }) => {
+const RowItem = ({
+  onPress,
+  onPressOption,
+}: {
+  onPress: () => void;
+  onPressOption: () => void;
+}) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.row}>
+      <Entypo name="cog" size={35} color={colors.light.sign} onPress={onPressOption} />
       <Entypo name="message" size={60} color="black" />
       <Text style={styles.text}>I&lsquo;m alive</Text>
       <Entypo name="chevron-right" size={20} color={colors.light.sign} />

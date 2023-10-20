@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Entypo } from '@expo/vector-icons';
 import Home from '../screens/Home';
 import Options from '../screens/Options';
+import MessageOptions from '../screens/MessageOptions';
 
 // const MainStack = createStackNavigator();
 
@@ -26,6 +27,13 @@ function MyTabs() {
         options={{
           tabBarIcon: ({ color, size }) => <Entypo name="cog" size={size} color={color} />,
           headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="MessageOptions"
+        component={MessageOptions}
+        options={{
+          tabBarButton: () => null,
         }}
       />
     </Tab.Navigator>
