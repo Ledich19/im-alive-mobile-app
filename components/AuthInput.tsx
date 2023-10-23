@@ -1,58 +1,39 @@
 import { StyleSheet, TextInput, View } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 
 const styles = StyleSheet.create({
   wrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 6,
-    borderWidth: 1,
-    height: 40,
-  },
-  icon: {
-    paddingLeft: 5,
-    paddingRight: 5,
+    borderRadius: 20,
+    backgroundColor: '#fff',
+    height: 44,
+    marginTop: 24,
   },
   input: {
     flex: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
+    fontSize: 16,
   },
 });
 
 type TAuthInput = {
   placeholder: string;
-  modifyStyle: [];
   state: string;
-  borderColor: string;
-  onFocus: () => void;
-  inputWrapStyle: [];
+  // eslint-disable-next-line no-unused-vars
+  onChangeText: (text: string) => void;
 };
 
-const AuthInput: React.FC<TAuthInput> = ({
-  placeholder,
-  modifyStyle,
-  state,
-  borderColor = '#1e90ff',
-  onFocus = () => {},
-  inputWrapStyle,
-}) => {
-  const [isFocus, setIsFocus] = useState(false);
-
+const AuthInput: React.FC<TAuthInput> = ({ placeholder, state, onChangeText }) => {
   return (
-    <View
-      style={{
-        ...styles.wrap,
-        ...inputWrapStyle,
-        borderColor: isFocus ? borderColor : '#f0f8ff',
-      }}
-    >
+    <View style={styles.wrap}>
       <TextInput
-        style={{ ...styles.input, ...modifyStyle }}
+        style={{ ...styles.input }}
         placeholder={placeholder ?? ''}
         value={state}
-        onFocus={() => {
-          onFocus();
-          setIsFocus(true);
-        }}
+        onChangeText={onChangeText}
+        placeholderTextColor="#3C3C4399"
       />
     </View>
   );
