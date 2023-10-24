@@ -8,8 +8,11 @@ import {
   TouchableWithoutFeedback,
   Text,
 } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import AuthInput from '../../components/AuthInput';
+import MainButton from '../../components/buttons/MainButton';
+import SmallButton from '../../components/buttons/SmallButton';
 
 const initialState = {
   email: '',
@@ -27,11 +30,19 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#2A3547',
     fontSize: 20,
+    marginBottom: 24,
   },
+  bottom: { marginBottom: 24 },
 });
 
-export default function LoginScreen() {
+interface ILoginScreen {
+  navigation: StackNavigationProp<any>;
+}
+
+const LoginScreen: React.FC<ILoginScreen> = ({ navigation }) => {
   const [state, setState] = useState(initialState);
+
+  const handleSignUp = () => {};
 
   const hideKeyboardOnTouch = () => {
     Keyboard.dismiss();
@@ -43,23 +54,40 @@ export default function LoginScreen() {
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <Text style={styles.text}>Login</Text>
           <View>
-            <AuthInput
-              placeholder="Email"
-              state={state.email}
-              onChangeText={(text) => {
-                setState((prevState) => ({ ...prevState, email: text }));
-              }}
+            <View style={styles.bottom}>
+              <AuthInput
+                placeholder="Email"
+                state={state.email}
+                onChangeText={(text) => {
+                  setState((prevState) => ({ ...prevState, email: text }));
+                }}
+              />
+            </View>
+            <View style={styles.bottom}>
+              <AuthInput
+                placeholder="Password"
+                state={state.password}
+                onChangeText={(text) => {
+                  setState((prevState) => ({ ...prevState, password: text }));
+                }}
+              />
+            </View>
+            <View style={styles.bottom}>
+              <MainButton title="Login" handlePress={handleSignUp} />
+            </View>
+            <SmallButton
+              title="To register"
+              handlePress={() => navigation.navigate('RegistrationScreen')}
             />
-            <AuthInput
-              placeholder="Password"
-              state={state.password}
-              onChangeText={(text) => {
-                setState((prevState) => ({ ...prevState, password: text }));
-              }}
+            <SmallButton
+              title="Forgot password"
+              handlePress={() => navigation.navigate('ForgotPassword')}
             />
           </View>
         </KeyboardAvoidingView>
       </View>
     </TouchableWithoutFeedback>
   );
-}
+};
+
+export default LoginScreen;

@@ -8,12 +8,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: '#fff',
     height: 44,
-    marginTop: 24,
   },
   input: {
     flex: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 16,
+    paddingRight: 16,
     fontSize: 16,
   },
 });
@@ -21,6 +20,7 @@ const styles = StyleSheet.create({
 type TAuthInput = {
   placeholder: string;
   state: string;
+
   // eslint-disable-next-line no-unused-vars
   onChangeText: (text: string) => void;
 };
