@@ -32,6 +32,7 @@ export const useRoute = (isAuth: boolean) => {
             key={name}
             options={{
               headerShown: false,
+              cardOverlayEnabled: true,
             }}
             name={name}
             component={component}
