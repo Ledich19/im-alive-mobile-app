@@ -6,13 +6,13 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
-  Text,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import AuthInput from '../../components/AuthInput';
 import MainButton from '../../components/buttons/MainButton';
 import SmallButton from '../../components/buttons/SmallButton';
+import { Text, View as ThemeView } from '../../components/Themed';
 
 const initialState = {
   email: '',
@@ -23,10 +23,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    marginHorizontal: 32,
-    paddingBottom: 100,
+    paddingHorizontal: 32,
   },
-  text: {
+
+  title: {
     alignSelf: 'center',
     color: '#2A3547',
     fontSize: 20,
@@ -50,42 +50,46 @@ const LoginScreen: React.FC<ILoginScreen> = ({ navigation }) => {
 
   return (
     <TouchableWithoutFeedback onPress={hideKeyboardOnTouch} style={{ backgroundColor: 'green' }}>
-      <View style={styles.container}>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <Text style={styles.text}>Login</Text>
-          <View>
-            <View style={styles.bottom}>
-              <AuthInput
-                placeholder="Email"
-                state={state.email}
-                onChangeText={(text) => {
-                  setState((prevState) => ({ ...prevState, email: text }));
-                }}
+      <ThemeView style={styles.container}>
+        <View>
+          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <View>
+              <Text style={styles.title}>Login</Text>
+            </View>
+            <View>
+              <View style={styles.bottom}>
+                <AuthInput
+                  placeholder="Email"
+                  state={state.email}
+                  onChangeText={(text) => {
+                    setState((prevState) => ({ ...prevState, email: text }));
+                  }}
+                />
+              </View>
+              <View style={styles.bottom}>
+                <AuthInput
+                  placeholder="Password"
+                  state={state.password}
+                  onChangeText={(text) => {
+                    setState((prevState) => ({ ...prevState, password: text }));
+                  }}
+                />
+              </View>
+              <View style={styles.bottom}>
+                <MainButton title="Login" handlePress={handleSignUp} />
+              </View>
+              <SmallButton
+                title="To register"
+                handlePress={() => navigation.navigate('RegistrationScreen')}
+              />
+              <SmallButton
+                title="Forgot password"
+                handlePress={() => navigation.navigate('ForgotPassword')}
               />
             </View>
-            <View style={styles.bottom}>
-              <AuthInput
-                placeholder="Password"
-                state={state.password}
-                onChangeText={(text) => {
-                  setState((prevState) => ({ ...prevState, password: text }));
-                }}
-              />
-            </View>
-            <View style={styles.bottom}>
-              <MainButton title="Login" handlePress={handleSignUp} />
-            </View>
-            <SmallButton
-              title="To register"
-              handlePress={() => navigation.navigate('RegistrationScreen')}
-            />
-            <SmallButton
-              title="Forgot password"
-              handlePress={() => navigation.navigate('ForgotPassword')}
-            />
-          </View>
-        </KeyboardAvoidingView>
-      </View>
+          </KeyboardAvoidingView>
+        </View>
+      </ThemeView>
     </TouchableWithoutFeedback>
   );
 };

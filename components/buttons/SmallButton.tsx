@@ -4,12 +4,11 @@ import React from 'react';
 const styles = StyleSheet.create({
   btn: {
     borderRadius: 20,
-    height: 44,
     justifyContent: 'center',
     alignItems: 'center',
   },
   btnTitle: {
-    color: 'black',
+    color: '#2A3547',
     fontSize: 16,
     fontWeight: '600',
   },

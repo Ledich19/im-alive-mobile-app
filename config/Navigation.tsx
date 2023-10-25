@@ -1,5 +1,5 @@
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { ImageBackground, StyleSheet } from 'react-native';
+
 // import { createStackNavigator } from '@react-navigation/stack';
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import { Entypo } from '@expo/vector-icons';
@@ -42,12 +42,6 @@ import { useRoute } from './router';
 //   );
 // }
 
-const styles = StyleSheet.create({
-  bgImg: {
-    flex: 1,
-  },
-});
-
 const navTheme = {
   ...DefaultTheme,
   colors: {
@@ -61,10 +55,8 @@ export default () => {
   const routing = useRoute(isAutorised);
 
   return (
-    <ImageBackground source={require('../assets/images/lite-bg-app.jpg')} style={styles.bgImg}>
-      <NavigationContainer theme={navTheme} independent>
-        {routing}
-      </NavigationContainer>
-    </ImageBackground>
+    <NavigationContainer theme={navTheme} independent>
+      {routing}
+    </NavigationContainer>
   );
 };
