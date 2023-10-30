@@ -5,8 +5,8 @@ import { useTheme, useNavigation } from '@react-navigation/native';
 import colors from '../constants/Colors';
 import RowItem from '../components/RowItem';
 import { getFromAsyncStore, setToAsyncStore } from '../config/asynkStore';
-import { IOption } from '../app/types';
-import { SettingsContext } from '../app/context';
+import { IOption } from '../../app/types';
+import { SettingsContext } from '../../app/context';
 
 export default () => {
   const navigation = useNavigation();

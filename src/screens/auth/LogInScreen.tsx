@@ -13,11 +13,17 @@ import AuthInput from '../../components/AuthInput';
 import MainButton from '../../components/buttons/MainButton';
 import SmallButton from '../../components/buttons/SmallButton';
 import { Text, View as ThemeView } from '../../components/Themed';
+import { login } from '../../config/firebase';
 
 const initialState = {
   email: '',
   password: '',
 };
+
+interface IState {
+  email: string;
+  password: string;
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +39,11 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   bottom: { marginBottom: 24 },
+  bottomRedirectWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 interface ILoginScreen {
@@ -40,9 +51,11 @@ interface ILoginScreen {
 }
 
 const LoginScreen: React.FC<ILoginScreen> = ({ navigation }) => {
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState<IState>(initialState);
 
-  const handleSignUp = () => {};
+  const handleSignUp = () => {
+    login(state.email, state.password);
+  };
 
   const hideKeyboardOnTouch = () => {
     Keyboard.dismiss();
@@ -78,14 +91,20 @@ const LoginScreen: React.FC<ILoginScreen> = ({ navigation }) => {
               <View style={styles.bottom}>
                 <MainButton title="Login" handlePress={handleSignUp} />
               </View>
-              <SmallButton
-                title="To register"
-                handlePress={() => navigation.navigate('RegistrationScreen')}
-              />
-              <SmallButton
-                title="Forgot password"
-                handlePress={() => navigation.navigate('ForgotPassword')}
-              />
+
+              <View style={styles.bottomRedirectWrapper}>
+                <Text>You don`t have an account? </Text>
+                <SmallButton
+                  title="To register"
+                  handlePress={() => navigation.navigate('RegistrationScreen')}
+                />
+              </View>
+              <View style={styles.bottomRedirectWrapper}>
+                <SmallButton
+                  title="Forgot password"
+                  handlePress={() => navigation.navigate('ForgotPassword')}
+                />
+              </View>
             </View>
           </KeyboardAvoidingView>
         </View>

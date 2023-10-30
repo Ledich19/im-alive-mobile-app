@@ -4,9 +4,9 @@ import { useRoute } from '@react-navigation/native';
 import colors from '../constants/Colors';
 import NumberInput from '../components/NumberInput';
 import { MessegeInput } from '../components/MessegeInput';
-import { IOption } from '../app/types';
+import { IOption } from '../../app/types';
 import { deleteFromAsyncStore, updateToAsyncStore } from '../config/asynkStore';
-import { SettingsContext } from '../app/context';
+import { SettingsContext } from '../../app/context';
 
 const styles = StyleSheet.create({
   container: {

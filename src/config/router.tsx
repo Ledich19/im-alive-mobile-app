@@ -22,9 +22,7 @@ const authRoute = [
 ];
 
 export const useRoute = (isAuth: boolean) => {
-  const isVerified = false;
-
-  if (!isAuth || !isVerified) {
+  if (!isAuth) {
     return (
       <AuthStack.Navigator>
         {authRoute.map(({ name, component }) => (
