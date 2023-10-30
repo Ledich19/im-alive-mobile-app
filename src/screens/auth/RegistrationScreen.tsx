@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FirebaseError } from '@firebase/util';
 import {
   StyleSheet,
   View,
@@ -15,14 +16,17 @@ import MainButton from '../../components/buttons/MainButton';
 import SmallButton from '../../components/buttons/SmallButton';
 import { Text, View as ThemeView } from '../../components/Themed';
 import { RegisterSchema } from '../../yupSchema/authSchema';
+import { register, updateProfileDate } from '../../config/firebase';
 
 const initialState = {
+  name: '',
   email: '',
   password: '',
   confirmPassword: '',
 };
 
 interface IInitialState {
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -41,6 +45,11 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   bottom: { marginBottom: 24 },
+  bottomRedirectWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 interface IRegistrationScreen {
@@ -48,8 +57,17 @@ interface IRegistrationScreen {
 }
 
 const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
-  const handleSignUp = (values: IInitialState) => {
-    console.log('object :>> ', values);
+  const [err, setErr] = useState<FirebaseError>();
+
+  const handleSignUp = async (values: IInitialState) => {
+    try {
+      const res = await register(values.email, values.password);
+      if (res) {
+        updateProfileDate(res.user, { name: values.name });
+      }
+    } catch (error: any) {
+      setErr(error);
+    }
   };
 
   const hideKeyboardOnTouch = () => {
@@ -73,6 +91,15 @@ const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
               {({ handleChange, handleSubmit, values, errors }) => {
                 return (
                   <>
+                    <View style={styles.bottom}>
+                      <AuthInput
+                        placeholder="Name"
+                        state={values.name}
+                        onChangeText={handleChange('name')}
+                      />
+                      {errors.email && <Text>{errors.name}</Text>}
+                    </View>
+
                     <View style={styles.bottom}>
                       <AuthInput
                         placeholder="Email"
@@ -104,10 +131,13 @@ const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
                 );
               }}
             </Formik>
-
-            <SmallButton title="To login" handlePress={() => navigation.navigate('LoginScreen')} />
+            <View style={styles.bottomRedirectWrapper}>
+              <Text>You have an account? </Text>
+              <SmallButton title="Login" handlePress={() => navigation.navigate('LoginScreen')} />
+            </View>
           </KeyboardAvoidingView>
         </View>
+        {err && <Text>{err.code}</Text>}
       </ThemeView>
     </TouchableWithoutFeedback>
   );

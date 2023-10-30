@@ -1,6 +1,8 @@
 import { StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native';
 
 import colors from '../constants/Colors';
+import SmallButton from '../components/buttons/SmallButton';
+import { logOut } from '../config/firebase';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,6 +32,8 @@ export default () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <SmallButton title="Logout" handlePress={logOut} />
+
       <TouchableOpacity style={styles.button} onPress={handleSaveOptions}>
         <Text style={styles.buttonText}>Save</Text>
       </TouchableOpacity>

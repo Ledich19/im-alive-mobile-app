@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { IOption } from '../app/types';
+import { IOption } from '../../app/types';
 
 export const getFromAsyncStore = async () => {
   try {
