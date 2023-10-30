@@ -99,7 +99,7 @@ const LoginScreen: React.FC<ILoginScreen> = ({ navigation }) => {
               <View style={styles.bottomRedirectWrapper}>
                 <Text>You don`t have an account? </Text>
                 <SmallButton
-                  title="To register"
+                  title="Register"
                   handlePress={() => navigation.navigate('RegistrationScreen')}
                 />
               </View>

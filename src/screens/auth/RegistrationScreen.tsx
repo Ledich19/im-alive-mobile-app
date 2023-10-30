@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FirebaseError } from '@firebase/util';
+import React from 'react';
+
 import {
   StyleSheet,
   View,
@@ -17,6 +17,7 @@ import SmallButton from '../../components/buttons/SmallButton';
 import { Text, View as ThemeView } from '../../components/Themed';
 import { RegisterSchema } from '../../yupSchema/authSchema';
 import { register, updateProfileDate } from '../../config/firebase';
+import { flashMessage } from '../../helpers/flashMessage';
 
 const initialState = {
   name: '',
@@ -57,8 +58,6 @@ interface IRegistrationScreen {
 }
 
 const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
-  const [err, setErr] = useState<FirebaseError>();
-
   const handleSignUp = async (values: IInitialState) => {
     try {
       const res = await register(values.email, values.password);
@@ -66,7 +65,8 @@ const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
         updateProfileDate(res.user, { name: values.name });
       }
     } catch (error: any) {
-      setErr(error);
+      flashMessage({ isError: true, message: error.code });
+      console.log('error :>> ', error);
     }
   };
 
@@ -137,7 +137,6 @@ const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
             </View>
           </KeyboardAvoidingView>
         </View>
-        {err && <Text>{err.code}</Text>}
       </ThemeView>
     </TouchableWithoutFeedback>
   );

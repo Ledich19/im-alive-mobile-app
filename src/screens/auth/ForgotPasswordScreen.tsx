@@ -15,6 +15,7 @@ import MainButton from '../../components/buttons/MainButton';
 import SmallButton from '../../components/buttons/SmallButton';
 import { Text, View as ThemeView } from '../../components/Themed';
 import { auth } from '../../config/firebase';
+import { flashMessage } from '../../helpers/flashMessage';
 
 const initialState = {
   email: '',
@@ -55,7 +56,10 @@ const ForgotPasswordScreen: React.FC<ILoginScreen> = ({ navigation }) => {
   const handleReset = async () => {
     try {
       await sendPasswordResetEmail(auth, state.email);
-    } catch (error) {
+
+      flashMessage({ isSuccess: true, message: `Message sended to email ${state.email}` });
+    } catch (error: any) {
+      flashMessage({ isError: true, message: error.code });
       console.log('error :>> ', error);
     }
   };
@@ -84,7 +88,7 @@ const ForgotPasswordScreen: React.FC<ILoginScreen> = ({ navigation }) => {
               </View>
 
               <View style={styles.bottom}>
-                <MainButton title="Change password" handlePress={handleReset} />
+                <MainButton title="Reset password" handlePress={handleReset} />
               </View>
 
               <View style={styles.bottomRedirectWrapper}>

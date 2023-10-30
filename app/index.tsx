@@ -1,5 +1,6 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
+import FlashMessage from 'react-native-flash-message';
 import { SettingsProvider } from './context';
 import Navigation from '../src/config/Navigation';
 
@@ -14,6 +15,7 @@ export default function App() {
     <SettingsProvider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Navigation />
+        <FlashMessage position="top" />
       </ThemeProvider>
     </SettingsProvider>
   );

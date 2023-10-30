@@ -6,7 +6,7 @@ import { Entypo } from '@expo/vector-icons';
 import LogInScreen from '../screens/auth/LogInScreen';
 import ForgotPasswordScreen from '../screens/auth/ForgotPasswordScreen';
 import RegistrationScreen from '../screens/auth/RegistrationScreen';
-import NewPasswordScreen from '../screens/auth/NewPasswordScreen';
+
 import Home from '../screens/Home';
 import Options from '../screens/Options';
 import MessageOptions from '../screens/MessageOptions';
@@ -18,7 +18,6 @@ const authRoute = [
   { component: LogInScreen, name: 'LoginScreen' },
   { component: RegistrationScreen, name: 'RegistrationScreen' },
   { component: ForgotPasswordScreen, name: 'ForgotPassword' },
-  { component: NewPasswordScreen, name: 'NewPasswordScreen' },
 ];
 
 export const useRoute = (isAuth: boolean) => {
