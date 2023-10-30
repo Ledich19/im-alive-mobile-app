@@ -53,8 +53,12 @@ interface ILoginScreen {
 const LoginScreen: React.FC<ILoginScreen> = ({ navigation }) => {
   const [state, setState] = useState<IState>(initialState);
 
-  const handleSignUp = () => {
-    login(state.email, state.password);
+  const handleSignUp = async () => {
+    try {
+      await login(state.email, state.password);
+    } catch (error) {
+      console.log('error :>> ', error);
+    }
   };
 
   const hideKeyboardOnTouch = () => {
