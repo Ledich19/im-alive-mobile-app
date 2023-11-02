@@ -1,9 +1,8 @@
 import { StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native';
-import { addDoc, collection } from 'firebase/firestore';
 
 import colors from '../constants/Colors';
 import SmallButton from '../components/buttons/SmallButton';
-import { db, logOut } from '../config/firebase';
+import { logOut } from '../config/firebase';
 
 const styles = StyleSheet.create({
   container: {
