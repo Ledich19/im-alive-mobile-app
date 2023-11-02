@@ -10,6 +10,7 @@ import {
   updateProfile,
   User,
 } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -28,6 +29,8 @@ export const app = initializeApp(firebaseConfig);
 initializeAuth(app, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage),
 });
+
+export const db = getFirestore(app);
 
 export const auth = getAuth();
 
