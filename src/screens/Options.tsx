@@ -2,7 +2,8 @@ import { StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native';
 
 import colors from '../constants/Colors';
 import SmallButton from '../components/buttons/SmallButton';
-import { logOut } from '../config/firebase';
+import { db, logOut } from '../config/firebase';
+import { addDoc, collection } from 'firebase/firestore';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,7 +29,19 @@ const styles = StyleSheet.create({
 });
 
 export default () => {
-  const handleSaveOptions = async () => {};
+  const handleSaveOptions = async () => {
+    try {
+      const docRef = await addDoc(collection(db, 'users'), {
+        email: 'aw@sd',
+        name: 'ddfa',
+        date: new Date(),
+        isOk: true,
+      });
+      console.log('Document written with ID: ', docRef.id);
+    } catch (e) {
+      console.error('Error adding document: ', e);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>

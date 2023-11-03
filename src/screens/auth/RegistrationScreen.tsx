@@ -10,13 +10,14 @@ import {
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
+import { addDoc, collection } from 'firebase/firestore';
 
 import AuthInput from '../../components/AuthInput';
 import MainButton from '../../components/buttons/MainButton';
 import SmallButton from '../../components/buttons/SmallButton';
 import { Text, View as ThemeView } from '../../components/Themed';
 import { RegisterSchema } from '../../yupSchema/authSchema';
-import { register, updateProfileDate } from '../../config/firebase';
+import { db, register, updateProfileDate } from '../../config/firebase';
 import { flashMessage } from '../../helpers/flashMessage';
 
 const initialState = {
@@ -63,6 +64,17 @@ const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
       const res = await register(values.email, values.password);
       if (res) {
         updateProfileDate(res.user, { name: values.name });
+        try {
+          const docRef = await addDoc(collection(db, 'users'), {
+            email: values.email,
+            name: values.name,
+            date: new Date(),
+            isOk: true,
+          });
+          console.log('Document written with ID: ', docRef.id);
+        } catch (e) {
+          console.error('Error adding document: ', e);
+        }
       }
     } catch (error: any) {
       flashMessage({ isError: true, message: error.code });
