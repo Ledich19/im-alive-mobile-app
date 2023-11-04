@@ -68,8 +68,6 @@ const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
           const docRef = await addDoc(collection(db, 'users'), {
             email: values.email,
             name: values.name,
-            date: new Date(),
-            isOk: true,
           });
           console.log('Document written with ID: ', docRef.id);
         } catch (e) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Entypo } from '@expo/vector-icons';
+import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import LogInScreen from '../screens/auth/LogInScreen';
 import ForgotPasswordScreen from '../screens/auth/ForgotPasswordScreen';
@@ -10,6 +10,7 @@ import RegistrationScreen from '../screens/auth/RegistrationScreen';
 import Home from '../screens/Home';
 import Options from '../screens/Options';
 import MessageOptions from '../screens/MessageOptions';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const AuthStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -54,6 +55,18 @@ export const useRoute = (isAuth: boolean) => {
         component={Options}
         options={{
           tabBarIcon: ({ color, size }) => <Entypo name="cog" size={size} color={color} />,
+          headerShown: false,
+        }}
+      />
+
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="face-man-profile" size={size} color={color} />
+          ),
+
           headerShown: false,
         }}
       />
