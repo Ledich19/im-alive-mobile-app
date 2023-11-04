@@ -98,7 +98,7 @@ const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
               initialValues={initialState}
               onSubmit={(values) => handleSignUp(values)}
             >
-              {({ handleChange, handleSubmit, values, errors }) => {
+              {({ handleChange, handleSubmit, values, errors, touched, handleBlur }) => {
                 return (
                   <>
                     <View style={styles.bottom}>
@@ -106,8 +106,9 @@ const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
                         placeholder="Name"
                         state={values.name}
                         onChangeText={handleChange('name')}
+                        handleBlur={handleBlur('name')}
                       />
-                      {errors.email && <Text>{errors.name}</Text>}
+                      {errors.email && touched.name && <Text>{errors.name}</Text>}
                     </View>
 
                     <View style={styles.bottom}>
@@ -115,24 +116,29 @@ const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
                         placeholder="Email"
                         state={values.email}
                         onChangeText={handleChange('email')}
+                        handleBlur={handleBlur('email')}
                       />
-                      {errors.email && <Text>{errors.email}</Text>}
+                      {errors.email && touched.email && <Text>{errors.email}</Text>}
                     </View>
                     <View style={styles.bottom}>
                       <AuthInput
                         placeholder="Password"
                         state={values.password}
                         onChangeText={handleChange('password')}
+                        handleBlur={handleBlur('password')}
                       />
-                      {errors.password && <Text>{errors.password}</Text>}
+                      {errors.password && touched.password && <Text>{errors.password}</Text>}
                     </View>
                     <View style={styles.bottom}>
                       <AuthInput
                         placeholder="Confirm Password"
                         state={values.confirmPassword}
                         onChangeText={handleChange('confirmPassword')}
+                        handleBlur={handleBlur('confirmPassword')}
                       />
-                      {errors.confirmPassword && <Text>{errors.confirmPassword}</Text>}
+                      {errors.confirmPassword && touched.confirmPassword && (
+                        <Text>{errors.confirmPassword}</Text>
+                      )}
                     </View>
                     <View style={styles.bottom}>
                       <MainButton title="Registration" handlePress={handleSubmit} />
