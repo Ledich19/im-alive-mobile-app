@@ -2,62 +2,9 @@ import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, TextInput, View, Modal, FlatList } from 'react-native';
 import * as Contacts from 'expo-contacts';
 import { Entypo } from '@expo/vector-icons';
-import colors from '../constants/Colors';
+// import colors from '../constants/Colors';
+import { useTheme } from '@react-navigation/native';
 
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    flexDirection: 'row',
-    borderRadius: 5,
-    marginTop: 16,
-  },
-  input: {
-    flex: 1,
-    backgroundColor: '#EBEBF599',
-    borderTopLeftRadius: 13,
-    borderBottomLeftRadius: 13,
-    height: 40,
-    paddingLeft: 40,
-    fontSize: 18,
-  },
-
-  contactButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#EBEBF599',
-    borderTopRightRadius: 13,
-    borderBottomRightRadius: 13,
-    borderTopLeftRadius: 13,
-    borderBottomLeftRadius: 13,
-    width: 40,
-    height: 40,
-    position: 'absolute',
-    zIndex: 5,
-  },
-
-  contactIcon: {
-    fontSize: 24,
-  },
-  contactModalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  contactModalContent: {
-    width: '80%',
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-  },
-  contactListItem: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.light.borderColor,
-  },
-  contactListItemText: {
-    fontSize: 18,
-  },
-});
 
 interface IProps {
   value: string;
@@ -67,6 +14,62 @@ interface IProps {
 }
 
 const NumberInput = ({ value, onChangeText, placeholder }: IProps) => {
+  const colors = useTheme().colors;
+  const styles = StyleSheet.create({
+    container: {
+      width: '100%',
+      flexDirection: 'row',
+      borderRadius: 5,
+      marginTop: 16,
+    },
+    input: {
+      flex: 1,
+      backgroundColor: '#EBEBF599',
+      borderTopLeftRadius: 13,
+      borderBottomLeftRadius: 13,
+      height: 40,
+      paddingLeft: 40,
+      fontSize: 18,
+    },
+  
+    contactButton: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#EBEBF599',
+      borderTopRightRadius: 13,
+      borderBottomRightRadius: 13,
+      borderTopLeftRadius: 13,
+      borderBottomLeftRadius: 13,
+      width: 40,
+      height: 40,
+      position: 'absolute',
+      zIndex: 5,
+    },
+  
+    contactIcon: {
+      fontSize: 24,
+    },
+    contactModalContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    contactModalContent: {
+      width: '80%',
+      backgroundColor: 'white',
+      padding: 20,
+      borderRadius: 10,
+    },
+    contactListItem: {
+      padding: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.border,
+    },
+    contactListItemText: {
+      fontSize: 18,
+    },
+  });
+  
   // const [contactName, setContactName] = useState('');
   const [contacts, setContacts] = useState<Contacts.Contact[]>([]);
   const [modalVisible, setModalVisible] = useState(false);

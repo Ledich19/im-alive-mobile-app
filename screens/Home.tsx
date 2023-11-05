@@ -2,7 +2,6 @@ import * as SMS from 'expo-sms';
 import { useContext, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity, Text, ScrollView, SafeAreaView } from 'react-native';
 import { useTheme, useNavigation } from '@react-navigation/native';
-import colors from '../constants/Colors';
 import RowItem from '../components/RowItem';
 import { getFromAsyncStore, setToAsyncStore } from '../config/asynkStore';
 import { IOption } from '../app/types';
@@ -11,20 +10,22 @@ import { SettingsContext } from '../app/context';
 export default () => {
   const navigation = useNavigation();
   const { settings, setSettings } = useContext(SettingsContext);
+  const colors = useTheme().colors;
+  console.log('----------------------');
+  console.log(colors);
 
-  const colorsa = useTheme().colors;
   const styles = StyleSheet.create({
     container: {
       paddingHorizontal: 16,
-      backgroundColor: colors.light.background,
+      backgroundColor: colors.background,
       flex: 1,
     },
     text: {
       fontSize: 16,
-      color: colors.light.text,
+      color: colors.text,
     },
     separator: {
-      backgroundColor: colors.light.borderColor,
+      backgroundColor: colors.border,
       height: 1,
     },
     header: {
@@ -35,7 +36,7 @@ export default () => {
       paddingHorizontal: 15,
       paddingTop: 7,
       height: 40,
-      borderRightColor: colors.light.borderColor,
+      borderRightColor: colors.border,
       backgroundColor: 'white',
       borderRadius: 13,
       marginTop: 20,
@@ -46,7 +47,6 @@ export default () => {
       fontWeight: 'bold',
     },
   });
-  console.log(colorsa);
 
   const handleSendSMS = async (item: IOption) => {
     const isAvailable = await SMS.isAvailableAsync();

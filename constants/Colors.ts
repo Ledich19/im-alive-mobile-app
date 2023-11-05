@@ -1,10 +1,15 @@
+import { DarkTheme, DefaultTheme } from '@react-navigation/native';
+
 const tintColorLight = '#2f95dc';
 const tintColorDark = '#fff';
-
-export default {
-  light: {
+export const lightTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    // background: 'white',
+    // text: 'black',
     text: '#343434',
-    borderColor: '#E2E2E2',
+    border: '#E2E2E2',
     tint: tintColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
@@ -13,9 +18,17 @@ export default {
     card: '#A3FEFEBF',
     sign: '#4B5E7C',
   },
-  dark: {
+};
+
+export const darkTheme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    // background: 'black',
+    // text: 'white',
+    sign: '#4B5E7C',
     text: '#fff',
-    borderColor: '#E2E2E2',
+    border: '#E2E2E2',
     background: '#000',
     tint: tintColorDark,
     tabIconDefault: '#ccc',
