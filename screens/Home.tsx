@@ -77,8 +77,9 @@ export default () => {
       <ScrollView style={styles.container}>
         {/* <RowItem onPress={handleSendSMS} /> */}
         {/* eslint-disable-next-line no-bitwise */}
-        {settings.map((item) => (
+        {settings.map((item, i) => (
           <RowItem
+            index={i}
             key={item.id}
             onPress={() => handleSendSMS(item)}
             text={item.message || '...'}

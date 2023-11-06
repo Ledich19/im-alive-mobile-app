@@ -22,7 +22,6 @@ export const setToAsyncStore = async (data: any) => {
     await AsyncStorage.setItem(
       'settings',
       JSON.stringify(settings.concat(data))
-      // JSON.stringify(settings.concat({ id: `${Math.random()}`, number, message }))
     );
     return data;
   } catch (error) {

@@ -70,7 +70,6 @@ const NumberInput = ({ value, onChangeText, placeholder }: IProps) => {
     },
   });
   
-  // const [contactName, setContactName] = useState('');
   const [contacts, setContacts] = useState<Contacts.Contact[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -114,9 +113,7 @@ const NumberInput = ({ value, onChangeText, placeholder }: IProps) => {
         keyboardType="phone-pad"
         // editable={false}
       />
-      {/* <TouchableOpacity style={styles.button} onPress={onButtonPress}>
-        <Text style={styles.buttonText}>{text}</Text>
-      </TouchableOpacity> */}
+    
 
       <Modal
         transparent

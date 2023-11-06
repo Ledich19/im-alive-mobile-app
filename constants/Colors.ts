@@ -1,8 +1,5 @@
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 
-const tintColorLight = '#2f95dc';
-const tintColorDark = '#fff';
-
 export interface BaseTheme {
   primary: string;
   background: string;
@@ -16,14 +13,15 @@ export interface BaseTheme {
   sign: string;
   button: string,
   buttonText: string,
+  // primary: string;
+    // notification: string;
 }
 
 export const lightTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    // background: 'white',
-    // text: 'black',
+
     background: '#36D5E8',
     border: '#E2E2E2',
     text: '#343434',
@@ -36,10 +34,9 @@ export const lightTheme = {
     button: '#2A3547',
     buttonText: 'white',
 
-    tint: tintColorLight,
+    tint: '#fff',
     tabIconDefault: '#ccc',
-    tabIconSelected: tintColorLight,
-    //
+    tabIconSelected: '#2f95dc',
     sign: '#4B5E7C',
   },
 };
@@ -48,8 +45,6 @@ export const darkTheme = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
-    // background: 'black',
-    // text: 'white',
     background: '#2A3547',
     text: 'white',
     border: '#2A3547',
@@ -63,11 +58,10 @@ export const darkTheme = {
     button: '#36D5E8',
     buttonText: 'white',
 
-    tint: tintColorDark,
+    tint: '#fff',
     tabIconDefault: '#ccc',
-    tabIconSelected: tintColorDark,
+    tabIconSelected: '#2f95dc',
 
-    // primary: string;
-    // notification: string;
+    
   },
 };
