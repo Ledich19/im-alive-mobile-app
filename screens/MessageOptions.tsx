@@ -1,14 +1,19 @@
 import { useContext, useEffect, useState } from 'react';
 import { StyleSheet, SafeAreaView, TouchableOpacity, Text, View } from 'react-native';
-import { useRoute, useTheme } from '@react-navigation/native';
+import { useRoute, useTheme, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import NumberInput from '../components/NumberInput';
 import { MessegeInput } from '../components/MessegeInput';
 import { IOption } from '../app/types';
 import { deleteFromAsyncStore, updateToAsyncStore } from '../config/asynkStore';
 import { SettingsContext } from '../app/context';
+import { BaseTheme } from '../constants/Colors';
 
 type RouteParams = {
   data: IOption;
+};
+type RootStackParamList = {
+  Home: object | undefined;
 };
 
 export default () => {
@@ -16,8 +21,9 @@ export default () => {
   const route = useRoute();
   const { setSettings } = useContext(SettingsContext);
   const receivedData = route.params as RouteParams;
-  const colors = useTheme().colors;
-  
+  const colors = useTheme().colors as BaseTheme;
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
   const styles = StyleSheet.create({
     container: {
       paddingHorizontal: 16,
@@ -37,7 +43,7 @@ export default () => {
       paddingTop: 7,
       height: 40,
       borderRightColor: colors.border,
-      backgroundColor: 'white',
+      backgroundColor: colors.button,
       borderRadius: 13,
       marginTop: 20,
       // position: 'absolute',
@@ -46,6 +52,7 @@ export default () => {
     },
     buttonText: {
       fontSize: 18,
+      color: colors.text,
       fontWeight: 'bold',
     },
     text: {
@@ -64,13 +71,16 @@ export default () => {
     }
   }, [receivedData]);
 
+
   const handleSaveOptions = async () => {
     const data = await updateToAsyncStore(setting);
     setSettings(data);
+    navigation.navigate('Home', {});
   };
   const handleDeleteOptions = async () => {
     const data = await deleteFromAsyncStore(setting);
     setSettings(data);
+    navigation.navigate('Home', {});
   };
 
   return (
@@ -103,6 +113,7 @@ export default () => {
       <TouchableOpacity style={styles.button} onPress={handleDeleteOptions}>
         <Text style={styles.buttonText}>Delete</Text>
       </TouchableOpacity>
+
       <TouchableOpacity style={styles.button} onPress={handleSaveOptions}>
         <Text style={styles.buttonText}>Save</Text>
       </TouchableOpacity>

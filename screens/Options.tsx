@@ -1,9 +1,10 @@
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native';
+import { BaseTheme } from '../constants/Colors';
 
 
 export default () => {
-  const colors = useTheme().colors;
+  const colors = useTheme().colors as BaseTheme;
   const styles = StyleSheet.create({
     container: {
       paddingHorizontal: 16,
@@ -15,7 +16,7 @@ export default () => {
       paddingTop: 7,
       height: 40,
       borderRightColor: colors.border,
-      backgroundColor: 'white',
+      backgroundColor: colors.button,
       borderRadius: 13,
       position: 'absolute',
       right: 0,
@@ -23,6 +24,7 @@ export default () => {
     },
     buttonText: {
       fontSize: 18,
+      color: colors.text,
       fontWeight: 'bold',
     },
   });
