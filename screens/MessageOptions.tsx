@@ -3,7 +3,7 @@ import { StyleSheet, SafeAreaView, TouchableOpacity, Text, View } from 'react-na
 import { useRoute, useTheme, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import NumberInput from '../components/NumberInput';
-import { MessegeInput } from '../components/MessegeInput';
+import { MessageInput } from '../components/MessageInput';
 import { IOption } from '../app/types';
 import { deleteFromAsyncStore, updateToAsyncStore } from '../config/asynkStore';
 import { SettingsContext } from '../app/context';
@@ -28,6 +28,8 @@ export default () => {
     container: {
       paddingHorizontal: 16,
       backgroundColor: colors.background,
+      justifyContent: 'space-between',
+      display: 'flex',
       flex: 1,
     },
     row: {
@@ -52,7 +54,7 @@ export default () => {
     },
     buttonText: {
       fontSize: 18,
-      color: colors.text,
+      color: colors.buttonText,
       fontWeight: 'bold',
     },
     text: {
@@ -70,7 +72,6 @@ export default () => {
       setSetting(receivedData.data);
     }
   }, [receivedData]);
-
 
   const handleSaveOptions = async () => {
     const data = await updateToAsyncStore(setting);
@@ -97,7 +98,7 @@ export default () => {
             }))
           }
         />
-        <MessegeInput
+        <MessageInput
           value={setting?.message || ''}
           placeholder="Message"
           onChangeText={(text) =>
@@ -108,15 +109,16 @@ export default () => {
             }))
           }
         />
+        <TouchableOpacity style={styles.button} onPress={handleSaveOptions}>
+          <Text style={styles.buttonText}>Save</Text>
+        </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleDeleteOptions}>
-        <Text style={styles.buttonText}>Delete</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.button} onPress={handleSaveOptions}>
-        <Text style={styles.buttonText}>Save</Text>
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity style={styles.button} onPress={handleDeleteOptions}>
+          <Text style={styles.buttonText}>Delete</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };

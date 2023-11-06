@@ -24,7 +24,7 @@ export default () => {
     },
     buttonText: {
       fontSize: 18,
-      color: colors.text,
+      color: colors.buttonText,
       fontWeight: 'bold',
     },
   });

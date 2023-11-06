@@ -28,7 +28,7 @@ interface IProps {
   onChangeText: (text: string) => void;
 }
 
-export const MessegeInput = ({ value, onChangeText, placeholder }: IProps) => {
+export const MessageInput = ({ value, onChangeText, placeholder }: IProps) => {
   return (
     <View style={styles.container}>
       <TextInput

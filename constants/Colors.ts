@@ -15,6 +15,7 @@ export interface BaseTheme {
   active: string;
   sign: string;
   button: string,
+  buttonText: string,
 }
 
 export const lightTheme = {
@@ -23,15 +24,22 @@ export const lightTheme = {
     ...DefaultTheme.colors,
     // background: 'white',
     // text: 'black',
-    text: '#343434',
+    background: '#36D5E8',
     border: '#E2E2E2',
+    text: '#343434',
+    card: '#A3FEFEBF',
+    
     menu: '#1B1F25',
+    menuItem: 'white',
+    active: '#4B5E7C',
+
+    button: '#2A3547',
+    buttonText: 'white',
+
     tint: tintColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
     //
-    background: '#36D5E8',
-    card: '#A3FEFEBF',
     sign: '#4B5E7C',
   },
 };
@@ -43,16 +51,17 @@ export const darkTheme = {
     // background: 'black',
     // text: 'white',
     background: '#2A3547',
+    text: 'white',
+    border: '#2A3547',
+    card: '#A3FEFE40',
 
     menu: '#1B1F25',
     menuItem: 'white',
     active: '#4B5E7C',
 
-    card: '#A3FEFE40',
     sign: 'white',
-    text: 'white',
-    border: '#2A3547',
     button: '#36D5E8',
+    buttonText: 'white',
 
     tint: tintColorDark,
     tabIconDefault: '#ccc',

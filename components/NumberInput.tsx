@@ -28,7 +28,7 @@ const NumberInput = ({ value, onChangeText, placeholder }: IProps) => {
       borderTopLeftRadius: 13,
       borderBottomLeftRadius: 13,
       height: 40,
-      paddingLeft: 40,
+      paddingLeft: 50,
       fontSize: 18,
     },
   
