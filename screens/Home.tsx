@@ -6,13 +6,12 @@ import RowItem from '../components/RowItem';
 import { getFromAsyncStore, setToAsyncStore } from '../config/asynkStore';
 import { IOption } from '../app/types';
 import { SettingsContext } from '../app/context';
+import { BaseTheme } from '../constants/Colors';
 
 export default () => {
   const navigation = useNavigation();
   const { settings, setSettings } = useContext(SettingsContext);
-  const colors = useTheme().colors;
-  console.log('----------------------');
-  console.log(colors);
+  const colors = useTheme().colors as BaseTheme;
 
   const styles = StyleSheet.create({
     container: {
@@ -37,14 +36,14 @@ export default () => {
       paddingTop: 7,
       height: 40,
       borderRightColor: colors.border,
-      backgroundColor: 'white',
+      backgroundColor: colors.button,
       borderRadius: 13,
       marginTop: 20,
       marginBottom: 20,
     },
     buttonText: {
       fontSize: 18,
-      fontWeight: 'bold',
+      color: colors.text,
     },
   });
 
@@ -77,6 +76,7 @@ export default () => {
           <RowItem
             key={item.id}
             onPress={() => handleSendSMS(item)}
+            text={item.message || '...'}
             onPressOption={() =>
               navigation.navigate('MessageOptions', {
                 data: item,

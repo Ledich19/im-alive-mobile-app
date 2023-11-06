@@ -1,17 +1,18 @@
-import { StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { useTheme } from '@react-navigation/native';
-
-
+import { BaseTheme } from '../constants/Colors';
 
 const RowItem = ({
   onPress,
   onPressOption,
+  text,
 }: {
   onPress: () => void;
   onPressOption: () => void;
+  text: string;
 }) => {
-  const colors = useTheme().colors;
+  const colors = useTheme().colors as BaseTheme;
   const styles = StyleSheet.create({
     row: {
       backgroundColor: colors.card,
@@ -32,7 +33,11 @@ const RowItem = ({
     <TouchableOpacity onPress={onPress} style={styles.row}>
       <Entypo name="cog" size={35} color={colors.sign} onPress={onPressOption} />
       <Entypo name="message" size={60} color="black" />
-      <Text style={styles.text}>I&lsquo;m alive</Text>
+      <View style={{ flex: 1 }}>
+        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.text}>
+          {text}
+        </Text>
+      </View>
       <Entypo name="chevron-right" size={20} color={colors.sign} />
     </TouchableOpacity>
   );

@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useTheme } from '@react-navigation/native';
 // import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Entypo } from '@expo/vector-icons';
@@ -6,15 +6,22 @@ import { useColorScheme } from 'react-native';
 import Home from '../screens/Home';
 import Options from '../screens/Options';
 import MessageOptions from '../screens/MessageOptions';
-import { darkTheme, lightTheme } from '../constants/Colors';
+import { BaseTheme, darkTheme, lightTheme } from '../constants/Colors';
 
 // const MainStack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {
+  const colors = useTheme().colors as BaseTheme;
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={() => ({
+        tabBarStyle: { backgroundColor: colors.menu },
+        tabBarActiveTintColor: colors.menuItem,
+        tabBarInactiveTintColor: colors.active,
+      })}
+    >
       <Tab.Screen
         name="Home"
         component={Home}
