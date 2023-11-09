@@ -1,4 +1,4 @@
-import { StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, SafeAreaView, TouchableOpacity, Text, View } from 'react-native';
 
 import { DocumentData, collection, doc, getDocs, onSnapshot, setDoc } from 'firebase/firestore';
 
@@ -6,36 +6,10 @@ import { User, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import colors from '../constants/Colors';
-import SmallButton from '../components/buttons/SmallButton';
-import { auth, db, logOut } from '../config/firebase';
-import { View } from '../components/Themed';
 
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-    backgroundColor: colors.light.background,
-    flex: 1,
-  },
-  input: {
-    backgroundColor: '#fff',
-    height: 40,
-    borderRadius: 10,
-  },
-  button: {
-    paddingHorizontal: 15,
-    paddingTop: 7,
-    height: 40,
-    borderRightColor: colors.light.borderColor,
-    backgroundColor: 'white',
-    borderRadius: 13,
-    right: 0,
-    bottom: 0,
-  },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-});
+import { auth, db } from '../config/firebase';
+
+import Message from '../components/Message';
 
 const ProfileScreen = () => {
   const [messages, setMessages] = useState<DocumentData[]>([]);
@@ -43,11 +17,11 @@ const ProfileScreen = () => {
   const [user, setUser] = useState<User>();
   const [subs, setsubs] = useState<DocumentData>();
 
-  const subscribe = async () => {
+  const subscribe = async (id: string) => {
     if (!user?.uid) return;
-    const dataRef = doc(db, `users/${user?.uid}/subscription`, user?.uid);
+    const dataRef = doc(db, `users/${user?.uid}/subscription`, id);
     setDoc(dataRef, {
-      id: user?.uid,
+      id,
     });
   };
 
@@ -104,7 +78,6 @@ const ProfileScreen = () => {
     return unsub;
   };
 
-  console.log('messages :>> ', messages);
   useEffect(() => {
     subs?.map((i: DocumentData) => {
       return getData(i);
@@ -113,8 +86,15 @@ const ProfileScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <SmallButton title="Logout" handlePress={logOut} />
-
+      <Text style={styles.title}>My subscriptions</Text>
+      {messages?.map((item) => {
+        return (
+          <View key={item.id}>
+            <Message name={item.name} message={item.message} time={item.time} />
+          </View>
+        );
+      })}
+      <Text style={styles.title}>My inform</Text>
       <TextInput
         onChangeText={(e) => {
           setUserMessages(e);
@@ -122,20 +102,45 @@ const ProfileScreen = () => {
         value={userMessage}
         style={styles.input}
       />
-      {messages?.map(({ name, message, id }) => (
-        <View key={id} style={{ backgroundColor: 'white', margin: 10 }}>
-          <Text>{name}</Text>
-          <Text>{message}</Text>
-        </View>
-      ))}
 
-      <TouchableOpacity style={styles.button} onPress={subscribe}>
-        <Text style={styles.buttonText}>Subscribe</Text>
-      </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={handleSendMessag}>
-        <Text style={styles.buttonText}>Send Message</Text>
+        <Text style={styles.buttonText}>Inform</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 16,
+    backgroundColor: colors.light.background,
+    flex: 1,
+  },
+  input: {
+    backgroundColor: '#fff',
+    height: 40,
+    borderRadius: 10,
+    padding: 5,
+    marginTop: 30,
+    marginBottom: 30,
+  },
+  button: {
+    paddingHorizontal: 15,
+    paddingTop: 7,
+    height: 40,
+    borderRightColor: colors.light.borderColor,
+    backgroundColor: 'white',
+    borderRadius: 13,
+    right: 0,
+    bottom: 0,
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  title: {
+    fontSize: 20,
+  },
+});
+
 export default ProfileScreen;
