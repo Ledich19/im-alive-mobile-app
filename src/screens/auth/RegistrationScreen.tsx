@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Formik } from 'formik';
-import { addDoc, collection } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 
 import AuthInput from '../../components/AuthInput';
 import MainButton from '../../components/buttons/MainButton';
@@ -65,11 +65,10 @@ const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
       if (res) {
         updateProfileDate(res.user, { name: values.name });
         try {
-          const docRef = await addDoc(collection(db, 'users'), {
+          await setDoc(doc(db, 'users', res.user.uid), {
             email: values.email,
             name: values.name,
           });
-          console.log('Document written with ID: ', docRef.id);
         } catch (e) {
           console.error('Error adding document: ', e);
         }
