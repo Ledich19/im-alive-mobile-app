@@ -3,11 +3,14 @@ import { StyleSheet, SafeAreaView, TouchableOpacity, Text, View } from 'react-na
 import { useRoute, useTheme, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import NumberInput from '../components/NumberInput';
-import { MessageInput } from '../components/MessageInput';
-import { IOption } from '../app/types';
-import { deleteFromAsyncStore, updateToAsyncStore } from '../config/asynkStore';
-import { SettingsContext } from '../app/context';
 import { BaseTheme } from '../constants/Colors';
+
+
+import { MessageInput } from '../components/MessegeInput';
+import { IOption } from '../../app/types';
+import { deleteFromAsyncStore, updateToAsyncStore } from '../config/asynkStore';
+import { SettingsContext } from '../../app/context';
+
 
 type RouteParams = {
   data: IOption;

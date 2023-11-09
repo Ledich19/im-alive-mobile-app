@@ -1,13 +1,16 @@
-// import { ThemeProvider } from '@react-navigation/native';
-// import { useColorScheme } from 'react-native';
-import Navigation from '../config/Navigation';
+import FlashMessage from 'react-native-flash-message';
 import { SettingsProvider } from './context';
-// import { darkTheme, lightTheme } from '../constants/Colors';
+import Navigation from '../src/config/Navigation';
+
+if (__DEV__) {
+  import('../ReactotronConfig.js').then(() => console.log('Reactotron Configured'));
+}
 
 export default function App() {
   return (
     <SettingsProvider>
       <Navigation />
+      <FlashMessage position="top" />
     </SettingsProvider>
   );
 }
