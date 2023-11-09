@@ -2,10 +2,10 @@ import { NavigationContainer, useTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Entypo } from '@expo/vector-icons';
 import { useColorScheme } from 'react-native';
-import Home from '../screens/Home';
-import Options from '../screens/Options';
-import MessageOptions from '../screens/MessageOptions';
-import { BaseTheme, darkTheme, lightTheme } from '../constants/Colors';
+import Home from '../src/screens/Home';
+import Options from '../src/screens/Options';
+import MessageOptions from '../src/screens/MessageOptions';
+import { BaseTheme, darkTheme, lightTheme } from '../src/constants/Colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -48,6 +48,8 @@ function MyTabs() {
 
 export default () => {
   const colorScheme = useColorScheme();
+  console.log('darkTheme', darkTheme);
+  
   return (
     <NavigationContainer theme={colorScheme === 'dark' ? darkTheme : lightTheme} independent>
       <MyTabs />

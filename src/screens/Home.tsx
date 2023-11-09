@@ -21,6 +21,7 @@ export default () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const { settings, setSettings } = useContext(SettingsContext);
   const colors = useTheme().colors as BaseTheme;
+console.log('HOME', colors);
 
   const styles = StyleSheet.create({
     container: {
