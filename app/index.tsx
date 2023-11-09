@@ -1,6 +1,6 @@
 // import { ThemeProvider } from '@react-navigation/native';
 // import { useColorScheme } from 'react-native';
-import Navigation from '../config/Navigation';
+import Navigation from '../src/config/Navigation';
 import { SettingsProvider } from './context';
 // import { darkTheme, lightTheme } from '../constants/Colors';
 

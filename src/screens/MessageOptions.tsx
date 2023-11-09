@@ -4,9 +4,9 @@ import { useRoute, useTheme, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import NumberInput from '../components/NumberInput';
 import { MessageInput } from '../components/MessageInput';
-import { IOption } from '../app/types';
+import { IOption } from '../../app/types';
 import { deleteFromAsyncStore, updateToAsyncStore } from '../config/asynkStore';
-import { SettingsContext } from '../app/context';
+import { SettingsContext } from '../../app/context';
 import { BaseTheme } from '../constants/Colors';
 
 type RouteParams = {

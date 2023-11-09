@@ -5,8 +5,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useTheme, useNavigation } from '@react-navigation/native';
 import RowItem from '../components/RowItem';
 import { getFromAsyncStore, setToAsyncStore } from '../config/asynkStore';
-import { IOption } from '../app/types';
-import { SettingsContext } from '../app/context';
+import { IOption } from '../../app/types';
+import { SettingsContext } from '../../app/context';
 import { BaseTheme } from '../constants/Colors';
 
 type RootStackParamList = {
