@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { useTheme } from '@react-navigation/native';
 import LogInScreen from '../screens/auth/LogInScreen';
 import ForgotPasswordScreen from '../screens/auth/ForgotPasswordScreen';
 import RegistrationScreen from '../screens/auth/RegistrationScreen';
@@ -23,8 +22,8 @@ const authRoute = [
   { component: ForgotPasswordScreen, name: 'ForgotPassword' },
 ];
 
-export const useRoute = (isAuth: boolean) => {
-  const colors = useTheme().colors as BaseTheme;
+export const useRoute = (isAuth: boolean, colors: BaseTheme) => {
+
   if (!isAuth) {
     return (
       <AuthStack.Navigator>

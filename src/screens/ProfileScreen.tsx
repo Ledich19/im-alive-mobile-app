@@ -23,7 +23,6 @@ console.log(colors);
     container: {
       paddingHorizontal: 16,
       borderRightColor: colors.background,
-      // todo colors.light.borderColor
       flex: 1,
     },
     input: {
@@ -39,7 +38,6 @@ console.log(colors);
       paddingTop: 7,
       height: 40,
       borderRightColor: colors.background,
-      // todo colors.light.borderColor
       backgroundColor: 'white',
       borderRadius: 13,
       right: 0,
