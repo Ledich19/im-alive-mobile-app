@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 
+import { useTheme } from '@react-navigation/native';
 import LogInScreen from '../screens/auth/LogInScreen';
 import ForgotPasswordScreen from '../screens/auth/ForgotPasswordScreen';
 import RegistrationScreen from '../screens/auth/RegistrationScreen';
@@ -11,6 +12,7 @@ import Home from '../screens/Home';
 import Options from '../screens/Options';
 import MessageOptions from '../screens/MessageOptions';
 import ProfileScreen from '../screens/ProfileScreen';
+import { BaseTheme } from '../constants/Colors';
 
 const AuthStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -22,6 +24,7 @@ const authRoute = [
 ];
 
 export const useRoute = (isAuth: boolean) => {
+  const colors = useTheme().colors as BaseTheme;
   if (!isAuth) {
     return (
       <AuthStack.Navigator>
@@ -41,7 +44,13 @@ export const useRoute = (isAuth: boolean) => {
   }
 
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={() => ({
+        tabBarStyle: { backgroundColor: colors.menu },
+        tabBarActiveTintColor: colors.menuItem,
+        tabBarInactiveTintColor: colors.active,
+      })}
+    >
       <Tab.Screen
         name="Home"
         component={Home}

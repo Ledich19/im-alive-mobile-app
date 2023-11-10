@@ -1,21 +1,16 @@
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { NavigationContainer} from '@react-navigation/native';
 import { User, onAuthStateChanged } from 'firebase/auth';
+import { useColorScheme } from 'react-native';
 import { useEffect, useState } from 'react';
-
 import { useRoute } from './router';
 import { auth } from './firebase';
+import { darkTheme, lightTheme } from '../constants/Colors';
 
-const navTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: 'transparent',
-  },
-};
+
 
 export default () => {
   const [user, setuser] = useState<User | null>(null);
-
+  const colorScheme = useColorScheme();
   useEffect(() => {
     onAuthStateChanged(auth, (userData) => {
       setuser(userData);
@@ -25,7 +20,7 @@ export default () => {
   const routing = useRoute(!!user);
 
   return (
-    <NavigationContainer theme={navTheme} independent>
+    <NavigationContainer theme={colorScheme === 'dark' ? darkTheme : lightTheme} independent>
       {routing}
     </NavigationContainer>
   );
