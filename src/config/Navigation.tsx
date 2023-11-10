@@ -1,56 +1,26 @@
-import { NavigationContainer, useTheme } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Entypo } from '@expo/vector-icons';
+import { NavigationContainer } from '@react-navigation/native';
+import { User, onAuthStateChanged } from 'firebase/auth';
 import { useColorScheme } from 'react-native';
-import Home from '../screens/Home';
-import Options from '../screens/Options';
-import MessageOptions from '../screens/MessageOptions';
-import { BaseTheme, darkTheme, lightTheme } from '../constants/Colors';
-
-const Tab = createBottomTabNavigator();
-
-function MyTabs() {
-  const colors = useTheme().colors as BaseTheme;
-  return (
-    <Tab.Navigator
-      screenOptions={() => ({
-        tabBarStyle: { backgroundColor: colors.menu },
-        tabBarActiveTintColor: colors.menuItem,
-        tabBarInactiveTintColor: colors.active,
-      })}
-    >
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarIcon: ({ color, size }) => <Entypo name="home" size={size} color={color} />,
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="Options"
-        component={Options}
-        options={{
-          tabBarIcon: ({ color, size }) => <Entypo name="cog" size={size} color={color} />,
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
-        name="MessageOptions"
-        component={MessageOptions}
-        options={{
-          tabBarButton: () => null,
-        }}
-      />
-    </Tab.Navigator>
-  );
-}
+import { useEffect, useState } from 'react';
+import { useRoute } from './router';
+import { auth } from './firebase';
+import { darkTheme, lightTheme } from '../constants/Colors';
 
 export default () => {
+  const [user, setuser] = useState<User | null>(null);
   const colorScheme = useColorScheme();
+  useEffect(() => {
+    onAuthStateChanged(auth, (userData) => {
+      setuser(userData);
+    });
+  }, []);
+
+  const colors = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const routing = useRoute(!!user, colors.colors);
+
   return (
     <NavigationContainer theme={colorScheme === 'dark' ? darkTheme : lightTheme} independent>
-      <MyTabs />
+      {routing}
     </NavigationContainer>
   );
 };

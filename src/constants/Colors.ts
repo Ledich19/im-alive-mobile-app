@@ -61,7 +61,5 @@ export const darkTheme = {
     tint: '#fff',
     tabIconDefault: '#ccc',
     tabIconSelected: '#2f95dc',
-
-    
   },
 };
