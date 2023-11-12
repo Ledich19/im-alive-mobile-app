@@ -12,9 +12,8 @@ export const AuthSchema = Yup.object().shape({
 })
 
 export const RegisterSchema = Yup.object().shape({
+	name: Yup.string().min(3, 'Name must contain at least 3 characters').required('Required field'),
 	email: Yup.string().email('Invalid email').required('Required field'),
-	name: Yup.string().required('Required field'),
-
 	password: Yup.string()
 		.required('Required field')
 		.min(6, 'Password must contain at least 6 characters')

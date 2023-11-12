@@ -10,7 +10,6 @@ import RegistrationScreen from '../screens/auth/RegistrationScreen';
 import Home from '../screens/Home';
 import Options from '../screens/Options';
 import MessageOptions from '../screens/MessageOptions';
-import ProfileScreen from '../screens/ProfileScreen';
 
 const AuthStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -20,6 +19,21 @@ const authRoute = [
   { component: RegistrationScreen, name: 'RegistrationScreen' },
   { component: ForgotPasswordScreen, name: 'ForgotPassword' },
 ];
+
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import MySabs from '../screens/tabTopSubs/MySubs';
+import InformTab from '../screens/tabTopSubs/InformTab';
+
+const TopTabNavigation = createMaterialTopTabNavigator();
+
+const SubsTopTab = () => {
+  return (
+    <TopTabNavigation.Navigator>
+      <TopTabNavigation.Screen name="My subscription" component={MySabs} />
+      <TopTabNavigation.Screen name="Inform" component={InformTab} />
+    </TopTabNavigation.Navigator>
+  );
+};
 
 export const useRoute = (isAuth: boolean) => {
   if (!isAuth) {
@@ -61,7 +75,7 @@ export const useRoute = (isAuth: boolean) => {
 
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={SubsTopTab}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="face-man-profile" size={size} color={color} />
