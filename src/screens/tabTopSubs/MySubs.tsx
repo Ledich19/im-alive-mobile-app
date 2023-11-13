@@ -1,6 +1,6 @@
-import { StyleSheet, SafeAreaView, Text, View } from 'react-native';
+import { StyleSheet, SafeAreaView, View } from 'react-native';
 
-import { DocumentData, collection, doc, getDocs, onSnapshot, setDoc } from 'firebase/firestore';
+import { DocumentData, collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
 
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
@@ -10,6 +10,7 @@ import colors from '../../constants/Colors';
 import { auth, db } from '../../config/firebase';
 
 import Message from '../../components/Message';
+import { Text } from '../../components/Themed';
 
 const MySabs = () => {
   const [messages, setMessages] = useState<DocumentData[]>([]);
@@ -62,6 +63,7 @@ const MySabs = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {messages.length === 0 && <Text style={styles.text}>There are no subscriptions</Text>}
       {messages?.map((item) => {
         return (
           <View key={item.id}>
@@ -78,6 +80,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: colors.light.background,
     flex: 1,
+  },
+  text: {
+    fontSize: 22,
+    textAlign: 'center',
   },
 });
 
