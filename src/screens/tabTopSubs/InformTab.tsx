@@ -1,6 +1,6 @@
 import { StyleSheet, SafeAreaView, TouchableOpacity, Text, View } from 'react-native';
 
-import { DocumentData, collection, doc, getDocs, onSnapshot, setDoc } from 'firebase/firestore';
+import { DocumentData, collection, doc, getDocs, setDoc } from 'firebase/firestore';
 
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
@@ -8,19 +8,11 @@ import { TextInput } from 'react-native-gesture-handler';
 import colors from '../../constants/Colors';
 
 import { auth, db } from '../../config/firebase';
+import { getSubscriptions, mySubscribers } from '../../helpers/subscribe';
 
 const InformTab = () => {
   const [userMessage, setUserMessages] = useState<string>('');
   const [user, setUser] = useState<User>();
-  const [subs, setsubs] = useState<DocumentData>();
-
-  const subscribe = async (id: string) => {
-    if (!user?.uid) return;
-    const dataRef = doc(db, `users/${user?.uid}/subscription`, id);
-    setDoc(dataRef, {
-      id,
-    });
-  };
 
   const handleSendMessag = async () => {
     if (!user?.uid) return;
@@ -36,16 +28,6 @@ const InformTab = () => {
       console.error('Error adding document: ', e);
     }
   };
-
-  useEffect(() => {
-    const getData = async () => {
-      const val = doc(db, `users/${user?.uid}`);
-      const docRef = collection(val, 'subscription');
-      const docSnap = await getDocs(docRef);
-      setsubs(docSnap.docs.map((d) => ({ ...d.data(), d })));
-    };
-    getData();
-  }, [user?.uid]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (userData) => {
