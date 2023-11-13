@@ -8,8 +8,6 @@ interface IFlashMessage {
 }
 
 export const flashMessage = ({ isError, isSuccess, message }: IFlashMessage) => {
-
-
   if (isError) {
     showMessage({
       message,
