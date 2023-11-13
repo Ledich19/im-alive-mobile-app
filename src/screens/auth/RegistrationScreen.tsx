@@ -19,6 +19,7 @@ import { Text, View as ThemeView } from '../../components/Themed';
 import { RegisterSchema } from '../../yupSchema/authSchema';
 import { db, register, updateProfileDate } from '../../config/firebase';
 import { flashMessage } from '../../helpers/flashMessage';
+import { sendEmailVerification } from 'firebase/auth';
 
 const initialState = {
   name: '',
@@ -69,6 +70,10 @@ const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
             email: values.email,
             name: values.name,
           });
+
+          const varification = await sendEmailVerification(res.user);
+          console.log('object :>> ', varification);
+          flashMessage({ isSuccess: true, message: 'Verify your email' });
         } catch (e) {
           console.error('Error adding document: ', e);
         }
@@ -97,7 +102,7 @@ const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
               initialValues={initialState}
               onSubmit={(values) => handleSignUp(values)}
             >
-              {({ handleChange, handleSubmit, values, errors, touched, handleBlur }) => {
+              {({ handleChange, handleSubmit, values, errors, touched, handleBlur, resetForm }) => {
                 return (
                   <>
                     <View style={styles.bottom}>

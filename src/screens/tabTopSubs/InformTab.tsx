@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import colors from '../../constants/Colors';
 
-import { auth, db } from '../../config/firebase';
+import { auth, db, logOut } from '../../config/firebase';
 import { getSubscriptions, mySubscribers } from '../../helpers/subscribe';
 
 const InformTab = () => {
@@ -49,6 +49,9 @@ const InformTab = () => {
 
       <TouchableOpacity style={styles.button} onPress={handleSendMessag}>
         <Text style={styles.buttonText}>Inform</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => logOut()}>
+        <Text style={styles.buttonText}>logOut</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

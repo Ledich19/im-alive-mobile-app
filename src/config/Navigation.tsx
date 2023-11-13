@@ -21,8 +21,8 @@ export default () => {
       setuser(userData);
     });
   }, []);
-
-  const routing = useRoute(!!user);
+  if (!user) return;
+  const routing = useRoute(user?.emailVerified);
 
   return (
     <NavigationContainer theme={navTheme} independent>
