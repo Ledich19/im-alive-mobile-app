@@ -9,16 +9,16 @@ type TMessage = {
 
 const Message: React.FC<TMessage> = ({ name, message, time }) => {
   const deteSent = new Date(time.seconds * 1000).getDate();
-  const todayday = new Date().getDate();
+  const isTodayday = new Date().getDate();
 
-  const classForText = deteSent === todayday ? 'textGreen' : 'textRed';
+  const classForText = deteSent === isTodayday ? 'textGreen' : 'textRed';
   return (
     <View style={styles.messageWrap}>
       <View style={{}}>
         <Text style={styles.name}>{name}</Text>
       </View>
       <View style={{ ...styles[classForText], ...styles.messageText }}>
-        <Text>{message}</Text>
+        {isTodayday ? <Text>Waiting for message</Text> : <Text>{message}</Text>}
       </View>
     </View>
   );
