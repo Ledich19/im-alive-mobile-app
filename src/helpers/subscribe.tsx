@@ -2,17 +2,17 @@ import { DocumentData, collection, doc, getDocs, setDoc } from 'firebase/firesto
 import { db } from '../config/firebase';
 import { useState } from 'react';
 
-const subscribe = async (currentUserId: string, subscriberId: string) => {
+const Subscribe = async (currentUserId: string, foloverId: string) => {
   if (!currentUserId) return;
-  const dataRef = doc(db, `users/${currentUserId}/subscription`, subscriberId);
+  const dataRef = doc(db, `users/${currentUserId}/subscription`, foloverId);
   setDoc(dataRef, {
-    subscriberId,
+    foloverId,
   });
 };
 
-const mySubscribers = async (subscriberId: string, currentUserId: string) => {
-  if (!subscriberId) return;
-  const dataRef = doc(db, `users/${subscriberId}/mySubscription`, currentUserId);
+const SetFolovers = async (foloverId: string, currentUserId: string) => {
+  if (!foloverId) return;
+  const dataRef = doc(db, `users/${foloverId}/mySubscription`, currentUserId);
   setDoc(dataRef, {
     currentUserId,
   });
@@ -34,4 +34,4 @@ const getSubscriptions = async (currentUserId: string | undefined) => {
   return docSnap.docs.map((d) => d.data());
 };
 
-export { subscribe, mySubscribers, getSubscribers, getSubscriptions };
+export { Subscribe, SetFolovers, getSubscribers, getSubscriptions };

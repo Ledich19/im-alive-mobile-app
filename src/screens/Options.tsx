@@ -16,9 +16,6 @@ const styles = StyleSheet.create({
     borderRightColor: colors.light.borderColor,
     backgroundColor: 'white',
     borderRadius: 13,
-    position: 'absolute',
-    right: 0,
-    bottom: 0,
   },
   buttonText: {
     fontSize: 18,
@@ -26,7 +23,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default () => {
+export default ({ navigation }) => {
   const handleSaveOptions = async () => {};
 
   return (
@@ -36,6 +33,12 @@ export default () => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => logOut()}>
         <Text style={styles.buttonText}>logout</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('qrcode')}>
+        <Text style={styles.buttonText}>Generate QR code</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('scanscreen')}>
+        <Text style={styles.buttonText}>Scan screen</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

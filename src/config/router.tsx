@@ -23,6 +23,8 @@ const authRoute = [
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import MySabs from '../screens/tabTopSubs/MySubs';
 import InformTab from '../screens/tabTopSubs/InformTab';
+import QRCodeScreen from '../screens/QRCodeScreen';
+import ScanSreen from '../screens/ScanSreen';
 
 const TopTabNavigation = createMaterialTopTabNavigator();
 
@@ -65,16 +67,7 @@ export const useRoute = (isAuth: boolean) => {
         }}
       />
       <Tab.Screen
-        name="Options"
-        component={Options}
-        options={{
-          tabBarIcon: ({ color, size }) => <Entypo name="cog" size={size} color={color} />,
-          headerShown: false,
-        }}
-      />
-
-      <Tab.Screen
-        name="Profile"
+        name="Message"
         component={SubsTopTab}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -84,9 +77,34 @@ export const useRoute = (isAuth: boolean) => {
           headerShown: false,
         }}
       />
+
+      <Tab.Screen
+        name="Options"
+        component={Options}
+        options={{
+          tabBarIcon: ({ color, size }) => <Entypo name="cog" size={size} color={color} />,
+          headerShown: false,
+        }}
+      />
+
       <Tab.Screen
         name="MessageOptions"
         component={MessageOptions}
+        options={{
+          tabBarButton: () => null,
+        }}
+      />
+
+      <Tab.Screen
+        name="qrcode"
+        component={QRCodeScreen}
+        options={{
+          tabBarButton: () => null,
+        }}
+      />
+      <Tab.Screen
+        name="scanscreen"
+        component={ScanSreen}
         options={{
           tabBarButton: () => null,
         }}
