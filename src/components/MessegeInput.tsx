@@ -38,9 +38,6 @@ export const MessegeInput = ({ value, onChangeText, placeholder }: IProps) => {
         onChangeText={onChangeText}
         style={styles.input}
       />
-      {/* <TouchableOpacity style={styles.button} onPress={onButtonPress}>
-        <Text style={styles.buttonText}>{text}</Text>
-      </TouchableOpacity> */}
     </View>
   );
 };

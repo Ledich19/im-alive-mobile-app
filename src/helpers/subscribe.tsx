@@ -1,4 +1,4 @@
-import { DocumentData, collection, doc, getDocs, setDoc } from 'firebase/firestore';
+import { DocumentData, collection, doc, getDocs, onSnapshot, setDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useState } from 'react';
 
@@ -12,26 +12,63 @@ const Subscribe = async (currentUserId: string, foloverId: string) => {
 
 const SetFolovers = async (foloverId: string, currentUserId: string) => {
   if (!foloverId) return;
-  const dataRef = doc(db, `users/${foloverId}/mySubscription`, currentUserId);
+  const dataRef = doc(db, `users/${foloverId}/folovers`, currentUserId);
   setDoc(dataRef, {
     currentUserId,
   });
 };
 
-const getSubscribers = async (currentUserId: string) => {
+const getFolovers = async (currentUserId: string) => {
   const [subs, setsubs] = useState<DocumentData>();
   const val = doc(db, `users/${currentUserId}`);
-  const docRef = collection(val, 'mySubscription');
+  const docRef = collection(val, 'folovers');
   const docSnap = await getDocs(docRef);
   setsubs(docSnap.docs.map((d) => ({ ...d.data(), d })));
   return subs;
 };
 
-const getSubscriptions = async (currentUserId: string | undefined) => {
-  const val = doc(db, `users/${currentUserId}`);
-  const docRef = collection(val, 'subscription');
-  const docSnap = await getDocs(docRef);
-  return docSnap.docs.map((d) => d.data());
+const getFoloversRealTime = (currentUserId: string | undefined) => {
+  if (!currentUserId) {
+    return Promise.reject('No user ID provided');
+  }
+  const userRef = doc(db, `users/${currentUserId}`);
+  const subscriptionRef = collection(userRef, 'folovers');
+
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onSnapshot(
+      subscriptionRef,
+      (snapshot) => {
+        const subscriptions = snapshot.docs.map((doc) => doc.data());
+        resolve(subscriptions);
+      },
+      (error) => {
+        reject(error);
+      }
+    );
+    return unsubscribe;
+  });
 };
 
-export { Subscribe, SetFolovers, getSubscribers, getSubscriptions };
+const getSubscriptionsRealTime = (currentUserId: string | undefined) => {
+  if (!currentUserId) {
+    return Promise.reject('No user ID provided');
+  }
+  const userRef = doc(db, `users/${currentUserId}`);
+  const subscriptionRef = collection(userRef, 'subscription');
+
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onSnapshot(
+      subscriptionRef,
+      (snapshot) => {
+        const subscriptions = snapshot.docs.map((doc) => doc.data());
+        resolve(subscriptions);
+      },
+      (error) => {
+        reject(error);
+      }
+    );
+    return unsubscribe;
+  });
+};
+
+export { Subscribe, SetFolovers, getFolovers, getSubscriptionsRealTime, getFoloversRealTime };

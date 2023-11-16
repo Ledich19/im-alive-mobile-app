@@ -2,6 +2,7 @@ import { StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native';
 
 import colors from '../constants/Colors';
 import { logOut } from '../config/firebase';
+import { SetFolovers, Subscribe } from '../helpers/subscribe';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,8 +24,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({ navigation }) => {
-  const handleSaveOptions = async () => {};
+export default () => {
+  const handleSaveOptions = async () => {
+    Subscribe('oT1tlfT6CJND9U8Q6rAUYmCBALx1', 'TNid9J1384UPWjSkwxDONYHDlRc2');
+    SetFolovers('TNid9J1384UPWjSkwxDONYHDlRc2', 'oT1tlfT6CJND9U8Q6rAUYmCBALx1');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -34,11 +38,8 @@ export default ({ navigation }) => {
       <TouchableOpacity style={styles.button} onPress={() => logOut()}>
         <Text style={styles.buttonText}>logout</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('qrcode')}>
-        <Text style={styles.buttonText}>Generate QR code</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('scanscreen')}>
-        <Text style={styles.buttonText}>Scan screen</Text>
+      <TouchableOpacity style={styles.button} onPress={handleSaveOptions}>
+        <Text style={styles.buttonText}>Sub</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

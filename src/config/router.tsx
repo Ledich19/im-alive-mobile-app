@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Entypo, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 
 import LogInScreen from '../screens/auth/LogInScreen';
 import ForgotPasswordScreen from '../screens/auth/ForgotPasswordScreen';
@@ -70,9 +70,7 @@ export const useRoute = (isAuth: boolean) => {
         name="Message"
         component={SubsTopTab}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="face-man-profile" size={size} color={color} />
-          ),
+          tabBarIcon: ({ color, size }) => <AntDesign name="wifi" size={size} color={color} />,
 
           headerShown: false,
         }}
