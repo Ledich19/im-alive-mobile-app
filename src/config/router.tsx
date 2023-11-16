@@ -98,6 +98,7 @@ export const useRoute = (isAuth: boolean) => {
         component={QRCodeScreen}
         options={{
           tabBarButton: () => null,
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -105,6 +106,7 @@ export const useRoute = (isAuth: boolean) => {
         component={ScanSreen}
         options={{
           tabBarButton: () => null,
+          headerShown: false,
         }}
       />
     </Tab.Navigator>

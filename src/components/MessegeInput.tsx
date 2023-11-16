@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
     height: 40,
     paddingLeft: 10,
     fontSize: 18,
-    textAlignVertical: 'top', // Align content at the top
-    minHeight: 100, // Minimum height
+    textAlignVertical: 'top',
+    minHeight: 100,
   },
 });
 

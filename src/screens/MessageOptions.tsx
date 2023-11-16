@@ -65,11 +65,11 @@ export default () => {
   }, [receivedData]);
 
   const handleSaveOptions = async () => {
-    const data = await updateToAsyncStore(setting);
+    const data = await updateToAsyncStore(setting, 'setings');
     setSettings(data);
   };
   const handleDeleteOptions = async () => {
-    const data = await deleteFromAsyncStore(setting);
+    const data = await deleteFromAsyncStore(setting, 'setings');
     setSettings(data);
   };
 
