@@ -1,43 +1,45 @@
-import { StyleSheet, SafeAreaView, View } from 'react-native';
-
-import { DocumentData, collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
-
 import { User, onAuthStateChanged } from 'firebase/auth';
+import { DocumentData, doc, onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-
-import colors from '../../constants/Colors';
-
-import { auth, db } from '../../config/firebase';
-
+import { ScrollView, StyleSheet, View } from 'react-native';
 import Message from '../../components/Message';
-import { Text } from '../../components/Themed';
+import { Text, View as ThemeView } from '../../components/Themed';
+import MainButton from '../../components/buttons/MainButton';
+import { auth, db } from '../../config/firebase';
+import { getSubscriptionsRealTime } from '../../helpers/subscribe';
 
-const MySabs = () => {
+interface Subscription {
+  id: string;
+}
+
+const MySabs = ({ navigation }: { navigation: any }) => {
   const [messages, setMessages] = useState<DocumentData[]>([]);
   const [user, setUser] = useState<User>();
-  const [subs, setsubs] = useState<DocumentData>();
+  const [subs, setsubs] = useState<Subscription[]>([]);
 
   useEffect(() => {
-    const getData = async () => {
-      const val = doc(db, `users/${user?.uid}`);
-      const docRef = collection(val, 'subscription');
-      const docSnap = await getDocs(docRef);
-
-      setsubs(docSnap.docs.map((d) => ({ ...d.data(), d })));
+    const fetchSubscriptions = async () => {
+      try {
+        const res = await getSubscriptionsRealTime(user?.uid);
+        setsubs(res as Subscription[]);
+      } catch (error) {
+        console.error('Error fetching subscriptions:', error);
+      }
     };
-    getData();
+
+    if (user?.uid) {
+      fetchSubscriptions();
+    }
   }, [user?.uid]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (userData) => {
-      if (userData) {
-        setUser(userData);
-      }
+      if (userData) setUser(userData);
     });
   }, []);
 
   const getData = async (id: DocumentData) => {
-    const docRef = doc(db, 'messages', id.id);
+    const docRef = doc(db, 'messages', id.foloverId);
     const unsub = onSnapshot(docRef, (mes) => {
       if (mes.exists()) {
         const updatedMessage = mes.data();
@@ -56,34 +58,51 @@ const MySabs = () => {
   };
 
   useEffect(() => {
-    subs?.map((i: DocumentData) => {
-      return getData(i);
-    });
+    if (subs) {
+      subs?.map((i: DocumentData) => {
+        getData(i);
+      });
+    }
   }, [subs]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      {messages.length === 0 && <Text style={styles.text}>There are no subscriptions</Text>}
-      {messages?.map((item) => {
-        return (
-          <View key={item.id}>
-            <Message name={item.name} message={item.message} time={item.time} />
-          </View>
-        );
-      })}
-    </SafeAreaView>
+    <ThemeView style={styles.container}>
+      <ScrollView>
+        {messages.length === 0 && <Text style={styles.text}>You are not subscribed to anyone</Text>}
+
+        {messages?.map((item) => {
+          return (
+            <View key={item.id}>
+              <Message name={item.name} message={item.message} time={item.time} />
+            </View>
+          );
+        })}
+      </ScrollView>
+
+      <View style={styles.btnWrap}>
+        <MainButton
+          title="Scan QR code to sudscribe"
+          handlePress={() => navigation.navigate('scanscreen')}
+        />
+        <MainButton title="Generate QR code" handlePress={() => navigation.navigate('qrcode')} />
+      </View>
+    </ThemeView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
-    backgroundColor: colors.light.background,
     flex: 1,
   },
   text: {
     fontSize: 22,
     textAlign: 'center',
+  },
+  messageWrap: { gap: 16 },
+  btnWrap: {
+    gap: 16,
+    marginBottom: 16,
   },
 });
 

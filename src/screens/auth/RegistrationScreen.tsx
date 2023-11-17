@@ -34,26 +34,6 @@ interface IInitialState {
   confirmPassword: string;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 32,
-  },
-  title: {
-    alignSelf: 'center',
-    color: '#2A3547',
-    fontSize: 20,
-    marginBottom: 24,
-  },
-  bottom: { marginBottom: 24 },
-  bottomRedirectWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
 interface IRegistrationScreen {
   navigation: StackNavigationProp<any>;
 }
@@ -84,7 +64,7 @@ const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={hideKeyboardOnTouch} style={{ backgroundColor: 'green' }}>
+    <TouchableWithoutFeedback onPress={hideKeyboardOnTouch}>
       <ThemeView style={styles.container}>
         <View>
           <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -156,5 +136,25 @@ const RegistrationScreen: React.FC<IRegistrationScreen> = ({ navigation }) => {
     </TouchableWithoutFeedback>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 32,
+  },
+  title: {
+    alignSelf: 'center',
+    color: '#2A3547',
+    fontSize: 20,
+    marginBottom: 24,
+  },
+  bottom: { marginBottom: 24 },
+  bottomRedirectWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
 export default RegistrationScreen;

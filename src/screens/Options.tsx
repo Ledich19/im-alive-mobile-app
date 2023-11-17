@@ -2,6 +2,7 @@ import { StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native';
 
 import colors from '../constants/Colors';
 import { logOut } from '../config/firebase';
+import { SetFolovers, Subscribe } from '../helpers/subscribe';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,9 +17,6 @@ const styles = StyleSheet.create({
     borderRightColor: colors.light.borderColor,
     backgroundColor: 'white',
     borderRadius: 13,
-    position: 'absolute',
-    right: 0,
-    bottom: 0,
   },
   buttonText: {
     fontSize: 18,
@@ -27,7 +25,10 @@ const styles = StyleSheet.create({
 });
 
 export default () => {
-  const handleSaveOptions = async () => {};
+  const handleSaveOptions = async () => {
+    Subscribe('oT1tlfT6CJND9U8Q6rAUYmCBALx1', 'TNid9J1384UPWjSkwxDONYHDlRc2');
+    SetFolovers('TNid9J1384UPWjSkwxDONYHDlRc2', 'oT1tlfT6CJND9U8Q6rAUYmCBALx1');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -36,6 +37,9 @@ export default () => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => logOut()}>
         <Text style={styles.buttonText}>logout</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={handleSaveOptions}>
+        <Text style={styles.buttonText}>Sub</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

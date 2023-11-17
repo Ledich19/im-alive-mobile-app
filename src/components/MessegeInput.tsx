@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
     height: 40,
     paddingLeft: 10,
     fontSize: 18,
-    textAlignVertical: 'top', // Align content at the top
-    minHeight: 100, // Minimum height
+    textAlignVertical: 'top',
+    minHeight: 100,
   },
 });
 
@@ -38,9 +38,6 @@ export const MessegeInput = ({ value, onChangeText, placeholder }: IProps) => {
         onChangeText={onChangeText}
         style={styles.input}
       />
-      {/* <TouchableOpacity style={styles.button} onPress={onButtonPress}>
-        <Text style={styles.buttonText}>{text}</Text>
-      </TouchableOpacity> */}
     </View>
   );
 };

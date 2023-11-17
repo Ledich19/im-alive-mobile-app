@@ -58,14 +58,14 @@ export default () => {
   };
 
   const handleAddNew = async () => {
-    await setToAsyncStore({ id: `${Math.random()}`, number: '', message: '' });
-    const newSettings = await getFromAsyncStore();
+    await setToAsyncStore({ id: `${Math.random()}`, number: '', message: '' }, 'setings');
+    const newSettings = await getFromAsyncStore('setings');
     if (!settings) return;
     setSettings(newSettings);
   };
 
   useEffect(() => {
-    getFromAsyncStore().then((data) => setSettings(data || []));
+    getFromAsyncStore('setings').then((data) => setSettings(data || []));
   }, []);
 
   return (

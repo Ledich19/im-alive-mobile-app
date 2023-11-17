@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Entypo, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 
 import LogInScreen from '../screens/auth/LogInScreen';
 import ForgotPasswordScreen from '../screens/auth/ForgotPasswordScreen';
@@ -23,6 +23,8 @@ const authRoute = [
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import MySabs from '../screens/tabTopSubs/MySubs';
 import InformTab from '../screens/tabTopSubs/InformTab';
+import QRCodeScreen from '../screens/QRCodeScreen';
+import ScanSreen from '../screens/ScanSreen';
 
 const TopTabNavigation = createMaterialTopTabNavigator();
 
@@ -65,6 +67,16 @@ export const useRoute = (isAuth: boolean) => {
         }}
       />
       <Tab.Screen
+        name="Message"
+        component={SubsTopTab}
+        options={{
+          tabBarIcon: ({ color, size }) => <AntDesign name="wifi" size={size} color={color} />,
+
+          headerShown: false,
+        }}
+      />
+
+      <Tab.Screen
         name="Options"
         component={Options}
         options={{
@@ -74,21 +86,27 @@ export const useRoute = (isAuth: boolean) => {
       />
 
       <Tab.Screen
-        name="Profile"
-        component={SubsTopTab}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="face-man-profile" size={size} color={color} />
-          ),
-
-          headerShown: false,
-        }}
-      />
-      <Tab.Screen
         name="MessageOptions"
         component={MessageOptions}
         options={{
           tabBarButton: () => null,
+        }}
+      />
+
+      <Tab.Screen
+        name="qrcode"
+        component={QRCodeScreen}
+        options={{
+          tabBarButton: () => null,
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="scanscreen"
+        component={ScanSreen}
+        options={{
+          tabBarButton: () => null,
+          headerShown: false,
         }}
       />
     </Tab.Navigator>

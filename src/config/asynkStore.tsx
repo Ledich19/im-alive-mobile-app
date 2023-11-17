@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IOption } from '../../app/types';
 
-export const getFromAsyncStore = async () => {
+export const getFromAsyncStore = async (storageName: string) => {
   try {
-    const settingsString = await AsyncStorage.getItem('settings');
+    const settingsString = await AsyncStorage.getItem(storageName);
     const data = settingsString ? JSON.parse(settingsString) : null;
     if (data) {
       return data;
@@ -15,12 +15,12 @@ export const getFromAsyncStore = async () => {
   }
 };
 // 'settings'
-export const setToAsyncStore = async (data: any) => {
+export const setToAsyncStore = async (data: any, storageName: string) => {
   try {
-    const settingsString = await AsyncStorage.getItem('settings');
+    const settingsString = await AsyncStorage.getItem(storageName);
     const settings = settingsString ? JSON.parse(settingsString) : [];
     await AsyncStorage.setItem(
-      'settings',
+      storageName,
       JSON.stringify(settings.concat(data))
       // JSON.stringify(settings.concat({ id: `${Math.random()}`, number, message }))
     );
@@ -30,9 +30,9 @@ export const setToAsyncStore = async (data: any) => {
     return null;
   }
 };
-export const updateToAsyncStore = async (data: any) => {
+export const updateToAsyncStore = async (data: any, storageName: string) => {
   try {
-    const settingsString = await AsyncStorage.getItem('settings');
+    const settingsString = await AsyncStorage.getItem(storageName);
     const settings = settingsString ? JSON.parse(settingsString) : [];
     const newSettings = settings.map((el: IOption) => {
       if (el.id === data.id) {
@@ -40,7 +40,7 @@ export const updateToAsyncStore = async (data: any) => {
       }
       return el;
     });
-    await AsyncStorage.setItem('settings', JSON.stringify(newSettings));
+    await AsyncStorage.setItem(storageName, JSON.stringify(newSettings));
     return newSettings;
   } catch (error) {
     console.error('Ошибка при сохранении настроек:', error);
@@ -48,13 +48,13 @@ export const updateToAsyncStore = async (data: any) => {
   }
 };
 
-export const deleteFromAsyncStore = async (data: any) => {
+export const deleteFromAsyncStore = async (data: any, storageName: string) => {
   try {
-    const settingsString = await AsyncStorage.getItem('settings');
+    const settingsString = await AsyncStorage.getItem(storageName);
     const settings = settingsString ? JSON.parse(settingsString) : [];
 
     const newSettings = settings.filter((el: IOption) => el.id !== data.id);
-    await AsyncStorage.setItem('settings', JSON.stringify(newSettings));
+    await AsyncStorage.setItem(storageName, JSON.stringify(newSettings));
     return newSettings;
   } catch (error) {
     console.error('Error when deleting settings:', error);
