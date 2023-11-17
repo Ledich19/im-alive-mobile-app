@@ -8,7 +8,6 @@ import { TextInput } from 'react-native-gesture-handler';
 import colors from '../../constants/Colors';
 
 import { auth, db } from '../../config/firebase';
-import { getSubscriptions, mySubscribers } from '../../helpers/subscribe';
 
 const InformTab = () => {
   const [userMessage, setUserMessages] = useState<string>('');

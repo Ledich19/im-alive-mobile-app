@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import React, { useEffect, useState } from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
+import MainButton from '../components/buttons/MainButton';
 
 type IScanData = {
   name: string;
@@ -39,40 +40,52 @@ export default function ScanSreen() {
   if (scanData)
     return (
       <View style={styles.container}>
-        <Text>Name: {scanData.name}</Text>
-        <Text>Id: {scanData.id}</Text>
+        <Text>Do you want to subscribe to </Text>
+        <Text>{scanData.name}</Text>
+        <MainButton title="Press subscribe" handlePress={() => {}} />
         <Button title="Scan again" onPress={() => setScanData(undefined)} />
       </View>
     );
 
   if (permission)
     return (
-      <BarCodeScanner
-        style={styles.container}
-        onBarCodeScanned={({ type, data }) => {
-          try {
-            console.log('type :>> ', type);
-            console.log('data :>> ', data);
-
-            let res = JSON.parse(data);
-            setScanData(res);
-          } catch (error) {
-            console.log('error :>> ', error);
-          }
-        }}
-      >
+      <View style={styles.container}>
         <Text style={styles.text}>Scan QR code</Text>
-      </BarCodeScanner>
-    );
+        <View style={styles.cameraContainer}>
+          <BarCodeScanner
+            style={styles.cameraView}
+            onBarCodeScanned={({ type, data }) => {
+              try {
+                console.log('type :>> ', type);
+                console.log('data :>> ', data);
 
-  return <View style={styles.container}></View>;
+                let res = JSON.parse(data);
+                setScanData(res);
+              } catch (error) {
+                console.log('error :>> ', error);
+              }
+            }}
+          ></BarCodeScanner>
+        </View>
+      </View>
+    );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'center',
   },
-  text: { backgroundColor: 'black', color: 'white', alignSelf: 'center' },
+  cameraContainer: {
+    width: 220,
+    height: 220,
+    borderRadius: 13,
+    padding: 5,
+    borderColor: 'gray',
+    borderWidth: 4,
+  },
+  cameraView: { height: '100%', width: '100%', borderRadius: 13 },
+  text: {},
 });

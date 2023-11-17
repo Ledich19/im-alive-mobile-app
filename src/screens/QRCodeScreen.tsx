@@ -1,9 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { User, onAuthStateChanged } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
+import { auth } from '../config/firebase';
 
 const QRCodeScreen = () => {
-  const payload = { name: 'artem', id: '12312312312' };
+  const [user, setUser] = useState<User>();
+
+  const payload = { name: user?.displayName, id: user?.uid };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (userData) => {
+      if (userData) setUser(userData);
+    });
+  }, []);
 
   return (
     <View style={styles.wraper}>

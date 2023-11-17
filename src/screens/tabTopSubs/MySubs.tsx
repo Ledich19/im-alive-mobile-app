@@ -1,16 +1,13 @@
-import { StyleSheet, SafeAreaView, View, ScrollView } from 'react-native';
-
-import { DocumentData, collection, doc, getDocs, onSnapshot } from 'firebase/firestore';
-
 import { User, onAuthStateChanged } from 'firebase/auth';
+import { DocumentData, doc, onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-
-import { auth, db } from '../../config/firebase';
-
+import { ScrollView, StyleSheet, View } from 'react-native';
 import Message from '../../components/Message';
 import { Text, View as ThemeView } from '../../components/Themed';
 import MainButton from '../../components/buttons/MainButton';
+import { auth, db } from '../../config/firebase';
 import { getSubscriptionsRealTime } from '../../helpers/subscribe';
+
 interface Subscription {
   id: string;
 }
@@ -37,9 +34,7 @@ const MySabs = ({ navigation }: { navigation: any }) => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (userData) => {
-      if (userData) {
-        setUser(userData);
-      }
+      if (userData) setUser(userData);
     });
   }, []);
 

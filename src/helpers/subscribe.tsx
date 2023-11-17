@@ -1,6 +1,6 @@
 import { DocumentData, collection, doc, getDocs, onSnapshot, setDoc } from 'firebase/firestore';
-import { db } from '../config/firebase';
 import { useState } from 'react';
+import { db } from '../config/firebase';
 
 const Subscribe = async (currentUserId: string, foloverId: string) => {
   if (!currentUserId) return;
@@ -71,4 +71,4 @@ const getSubscriptionsRealTime = (currentUserId: string | undefined) => {
   });
 };
 
-export { Subscribe, SetFolovers, getFolovers, getSubscriptionsRealTime, getFoloversRealTime };
+export { SetFolovers, Subscribe, getFolovers, getFoloversRealTime, getSubscriptionsRealTime };
